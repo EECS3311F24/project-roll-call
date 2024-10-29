@@ -42,16 +42,7 @@ pip install -r requirements.txt
 ```
 
 
-### 4. Set Up Your Own Environment Variables
-
-
-### 5. Run Database Migrations
-```bash
-flask db upgrade
-```
-
-
-### 6. Start the Application
+### 4. Start the Application
 ```bash
 flask run
 ```
@@ -59,4 +50,37 @@ or
 ```bash
 python app.py
 ```
+
+
+
+# Running Google API
+
+Make sure requirements are installed
+
+    pip install -r requirements.txt
+
+run quickstart in terminal (do not worry if imports are highlighted in red)
+
+    python quickstart.py
+
+- this should open a Google authorization window
+- return the next 10 scheduled events
+- you only have to sign in once, as a token will be created which will be used the next time.
+- To sign into another account, delete the token.json
+
+###  **To access the Google Project:**
+
+- Go to: https://console.cloud.google.com/
+- Sign in as: 
+  - saras.rollcall@gmail.com
+  - pass: eecs3311
+
+To retrieve info from your own personal account you need to add your account as a test user: 
+https://console.cloud.google.com/apis/credentials/consent?project=rollcall-440018
+
+
+
+
+
+
 

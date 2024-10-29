@@ -28,3 +28,7 @@ venv/
 
 # Python cache
 __pycache__
+
+#google-api
+token.json
+
