@@ -1,4 +1,4 @@
-import datetime
+import datetime as dt
 import os.path
 
 from google.auth.transport.requests import Request
@@ -11,7 +11,7 @@ from googleapiclient.errors import HttpError
 SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
 
 
-def main():
+def get_ten_events():
     """Shows basic usage of the Google Calendar API.
     Prints the start and name of the next 10 events on the user's calendar.
     """
@@ -38,19 +38,20 @@ def main():
         service = build("calendar", "v3", credentials=creds)
 
         # Call the Calendar API
-        now = datetime.datetime.utcnow().isoformat() + "Z"  # 'Z' indicates UTC time
+        now = dt.datetime.now(dt.UTC).isoformat()
+
         print("Getting the upcoming 10 events")
+        
         events_result = (
-            service.events()
-            .list(
+            service.events().list(
                 calendarId="primary",
                 timeMin=now,
                 maxResults=10,
                 singleEvents=True,
                 orderBy="startTime",
-            )
-            .execute()
+            ).execute()
         )
+
         events = events_result.get("items", [])
 
         if not events:
@@ -62,9 +63,7 @@ def main():
             start = event["start"].get("dateTime", event["start"].get("date"))
             print(start, event["summary"])
 
+        return events
+    
     except HttpError as error:
         print(f"An error occurred: {error}")
-
-
-if __name__ == "__main__":
-    main()
