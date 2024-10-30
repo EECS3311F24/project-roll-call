@@ -5,7 +5,7 @@ import { CalendarEvent } from './types';
 
 function App() {
   const [dayEvents, setDayEvents] = useState<CalendarEvent[]>([]);
-  // const [weekEvents, setWeekEvents] = useState<CalendarEvent[]>([]);
+  const [weekEvents, setWeekEvents] = useState<CalendarEvent[]>([]);
 
   useEffect(() => {
     const fetchDayEvents = async () => {
@@ -15,13 +15,13 @@ function App() {
     fetchDayEvents();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchWeekEvents = async () => {
-  //     const response = await axios.get('http://127.0.0.1:5000/week_events');
-  //     setWeekEvents(response.data);
-  //   };
-  //   fetchWeekEvents();
-  // }, []);
+  useEffect(() => {
+    const fetchWeekEvents = async () => {
+      const response = await axios.get('http://127.0.0.1:5000/week_events');
+      setWeekEvents(response.data);
+    };
+    fetchWeekEvents();
+  }, []);
 
   return (
     <div>
@@ -31,12 +31,12 @@ function App() {
             <li key={event.id}>{event.start.dateTime || event.start.date}: {event.summary}</li>
         ))}
       </ul>
-      {/* <h1>Upcoming Events for This Week</h1>
+      <h1>Upcoming Events for This Week</h1>
       <ul>
         {weekEvents.map((event) => (
             <li key={event.id}>{event.start.dateTime || event.start.date}: {event.summary}</li>
         ))}
-      </ul> */}
+      </ul>
     </div>
   )
 }
