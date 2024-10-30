@@ -11,50 +11,50 @@ import pytz
 # if modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
 
-# def get_week():
-#     creds = None
-#     if os.path.exists("token.json"):
-#         creds = Credentials.from_authorized_user_file("token.json", SCOPES)
-#     if not creds or not creds.valid:
-#         if creds and creds.expired and creds.refresh_token:
-#             creds.refresh(Request())
-#         else:
-#             flow = InstalledAppFlow.from_client_secrets_file(
-#                 "credentials.json", SCOPES
-#             )
-#             creds = flow.run_local_server(port=0)
-#         with open("token.json", "w") as token:
-#             token.write(creds.to_json())
+def get_week():
+    creds = None
+    if os.path.exists("token.json"):
+        creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                "credentials.json", SCOPES
+            )
+            creds = flow.run_local_server(port=0)
+        with open("token.json", "w") as token:
+            token.write(creds.to_json())
 
-#     try:
-#         service = build("calendar", "v3", credentials=creds)
+    try:
+        service = build("calendar", "v3", credentials=creds)
 
-#         print("Getting the upcoming events for the week...")
+        print("Getting the upcoming events for the week...")
         
-#         # set now to the time right now, and time_max to the time 7 days from now
-#         now = dt.datetime.now(dt.UTC)
-#         now_iso = now.isoformat()
-#         time_max = (now + dt.timedelta(days=7)).isoformat()
+        # set now to the time right now, and time_max to the time 7 days from now
+        now = dt.datetime.now(dt.UTC)
+        now_iso = now.isoformat()
+        time_max = (now + dt.timedelta(days=7)).isoformat()
 
-#         events_result = (
-#             service.events().list(
-#                 calendarId="primary",
-#                 timeMin=now_iso,
-#                 timeMax=time_max,
-#                 singleEvents=True,
-#                 orderBy="startTime",
-#             ).execute()
-#         )
+        events_result = (
+            service.events().list(
+                calendarId="primary",
+                timeMin=now_iso,
+                timeMax=time_max,
+                singleEvents=True,
+                orderBy="startTime",
+            ).execute()
+        )
 
-#         events = events_result.get("items", [])
+        events = events_result.get("items", [])
 
-#         if not events:
-#             print("No weekly events...")
+        if not events:
+            print("No weekly events...")
 
-#         return events
+        return events
     
-#     except HttpError as error:
-#         print(f"An error occurred: {error}")
+    except HttpError as error:
+        print(f"An error occurred: {error}")
 
 def get_day():
     creds = None
