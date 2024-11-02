@@ -43,5 +43,11 @@ def get_week_events():
     events = get_week()
     return jsonify(events)
 
+# route for getting the upcoming events within a week from Google Calendar api
+@app.route("/month_events", methods=['GET'])
+def get_month_events():
+    events = get_month()
+    return jsonify(events)
+
 if __name__ == "__main__":
     app.run(debug = True)
