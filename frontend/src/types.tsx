@@ -9,4 +9,8 @@ export interface CalendarEvent {
         dateTime?: string;
         date?: string; 
     };
+    end: {
+        dateTime?: string;
+    }
+
 }
