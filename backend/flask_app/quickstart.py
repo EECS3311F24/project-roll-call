@@ -127,13 +127,14 @@ def get_day():
         timezone = pytz.timezone("America/New_York")
         now = dt.datetime.now(timezone)
         now_iso = now.isoformat()
+        start_of_day = now.replace(hour=0, minute=00, second=00, microsecond=999999).isoformat()
         end_of_day = now.replace(hour=23, minute=59, second=59, microsecond=999999).isoformat()
 
         print("Getting today's events")
         
         events_result = service.events().list(
             calendarId="primary",
-            timeMin=now_iso,
+            timeMin=start_of_day,
             timeMax=end_of_day,
             singleEvents=True,
             orderBy="startTime"
