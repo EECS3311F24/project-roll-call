@@ -79,7 +79,8 @@ def get_week():
         print("Getting the upcoming events for the week...")
         
         # set now to the time right now, and time_max to the time 7 days from now
-        now = dt.datetime.now(dt.UTC)
+        # now = dt.datetime.now(dt.UTC)
+        now = dt.datetime.now(dt.timezone.utc)
         now_iso = now.isoformat()
         time_max = (now + dt.timedelta(days=7)).isoformat()
 
