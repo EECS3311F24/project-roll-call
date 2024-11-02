@@ -33,11 +33,10 @@ function TodayBubble() {
       {events.map((event) => (
         <div
           key={event.id}
-          className={`ml-5 flex items-center ${isEventPast(event.end.dateTime) ? 'opacity-40' : ''}`}
+          className={`ml-5 flex items-start ${isEventPast(event.end.dateTime) ? 'opacity-40' : ''}`}
         >
-          <span className="font-semibold">‣ &nbsp;</span>
-          <span className="font-semibold text-gray-700">{formatTime(event.start.dateTime || '')}:</span>
-          <span className="ml-2">{event.summary}</span>
+          <span className="font-semibold text-gray-700 whitespace-nowrap">‣ &nbsp;{formatTime(event.start.dateTime || '')}:</span>
+          <span className="ml-2 flex-1">{event.summary}</span>
         </div>
       ))}
     </div>
