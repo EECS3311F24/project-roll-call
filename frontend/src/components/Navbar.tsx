@@ -23,7 +23,7 @@ const pages = [
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
-  const location = useLocation();
+  const location = useLocation()
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -37,10 +37,10 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar position="static" sx={{ backgroundColor: '#D9E5D6' }}>
-      <Container maxWidth={false}>
-        <Toolbar disableGutters sx={{ justifyContent: 'space-between', px: 1}}>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
           
-          {/* Logo on the Far Left */}
+          {/* Logo */}
           <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
             <CalendarIcon sx={{ fontSize: 45, mr: 1, color: 'black' }} />
             <Typography
@@ -60,8 +60,8 @@ function ResponsiveAppBar() {
             </Typography>
           </Link>
 
-          {/* Page Navigation Buttons in the Center */}
-          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', mr: 21}}>
+          {/* Page Navigation Buttons */}
+          <Box sx={{ flexGrow: 1, display: 'flex' , ml: 7}}>
             {pages.map((page) => (
               <Button
                 key={page.label}
@@ -69,7 +69,7 @@ function ResponsiveAppBar() {
                 to={page.path}
                 sx={{ 
                     my: 2, 
-                    mx: 2,
+                    ml: 5,
                     color: 'black', 
                     display: 'block', 
                     textTransform: 'none',
@@ -83,10 +83,10 @@ function ResponsiveAppBar() {
             ))}
           </Box>
 
-          {/* User Avatar and Settings Menu on the Far Right */}
+          {/* User Avatar and Settings Menu */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, }}>
                 <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>

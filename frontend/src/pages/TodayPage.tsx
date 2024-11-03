@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
 import SummaryBubble from '../components/SummaryBubble';
 import HelloBubble from '../components/HelloBubble';
 
@@ -13,9 +12,8 @@ const TodayPage = () => {
   ];
 
   return (
-    <>
-    <Navbar/> 
     <div className="px-[100px]">
+      
       <HelloBubble />
 
       <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
@@ -30,10 +28,8 @@ const TodayPage = () => {
         ))}
       </div>
     </div>
-    </>
   );
 };
 
 export default TodayPage;
-
 

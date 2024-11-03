@@ -1,14 +1,10 @@
-import React from 'react';
-import Navbar from '../components/Navbar';
+import React from 'react'
 
 const HistoryPage = () => {
   return (
-    <>
-    <Navbar/> 
     <div>
       Welcome to History Page
     </div>
-    </>
   )
 }
 
