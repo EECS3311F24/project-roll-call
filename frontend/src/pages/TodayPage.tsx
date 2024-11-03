@@ -3,6 +3,7 @@ import SummaryBubble from '../components/SummaryBubble';
 import HelloBubble from '../components/HelloBubble';
 import TodayBubble from '../components/TodayBubble';
 import WeekBubble from '../components/WeekBubble';
+import Navbar from '../components/Navbar';
 
 const TodayPage = () => {
 

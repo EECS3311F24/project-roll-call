@@ -9,7 +9,7 @@ const roll = " Roll "
 const LandingPage = () => {
   return (
     <>
-      <div className="container">
+      <div className="flex w-full">
         <div className="container-left">
           <div className="header-text">
             <span>Welcome to </span>
