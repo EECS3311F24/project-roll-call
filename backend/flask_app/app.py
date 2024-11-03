@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pymongo import MongoClient
-from quickstart import *
+from events import *
 
 app = Flask(__name__)
 
@@ -31,7 +31,7 @@ CORS(app)
 #     users.insert_one(new_data)
 #     return jsonify(convert_id_to_string(new_data)), 201
 
-# route for getting the upcoming events from today from Google Calendar api
+# route for getting the events from today from Google Calendar api
 @app.route("/day_events", methods=['GET'])
 def get_day_events():
     events = get_day()
