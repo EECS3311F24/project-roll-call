@@ -7,7 +7,6 @@ import YesterdayPage from './pages/YesterdayPage';
 import HistoryPage from './pages/HistoryPage';
 import InsightsPage from './pages/InsightsPage';
 import DBport from './pages/DBport';
-import GoogleAPI from './pages/GoogleAPI';
 
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
           <Route path="/insights" element={<InsightsPage />} />
 
           <Route path="/DBport" element={<DBport />} />
-          <Route path="/google-api" element={<GoogleAPI />} />
         </Routes>
 
     </ThemeProvider>
