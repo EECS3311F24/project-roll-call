@@ -23,6 +23,16 @@ function TodayBubble() {
     return events.every(event => isEventPast(event.end.dateTime));
   };
 
+  const isEventHappening = (startDateTime: string | undefined, endDateTime: string | undefined) => {
+    if (!startDateTime || !endDateTime) return false;
+    
+    const start = new Date(startDateTime);
+    const end = new Date(endDateTime);
+    const now = new Date();
+
+    return start <= now && now <= end;
+  };
+
   const morningEvents = dayEvents.filter(event => event.start.dateTime && new Date(event.start.dateTime).getHours() < 12);
   const afternoonEvents = dayEvents.filter(event => event.start.dateTime && new Date(event.start.dateTime).getHours() >= 12 && new Date(event.start.dateTime).getHours() < 18);
   const eveningEvents = dayEvents.filter(event => event.start.dateTime && new Date(event.start.dateTime).getHours() >= 18);
@@ -35,8 +45,12 @@ function TodayBubble() {
           key={event.id}
           className={`ml-5 flex items-start ${isEventPast(event.end.dateTime) ? 'opacity-40' : ''}`}
         >
-          <span className="font-semibold text-gray-700 whitespace-nowrap">‣ &nbsp;{formatTime(event.start.dateTime || '')}:</span>
-          <span className="ml-2 flex-1">{event.summary}</span>
+          <span className={`font-semibold whitespace-nowrap ${isEventHappening(event.start.dateTime, event.end.dateTime) ? 'text-blue-600' : 'text-gray-700'}`}>
+            ‣ &nbsp;{formatTime(event.start.dateTime || '')}:
+          </span>
+          <span className={`ml-2 flex-1 font-normal whitespace-normal ${isEventHappening(event.start.dateTime, event.end.dateTime) ? 'text-blue-600' : 'text-black-700'}`}>
+            {event.summary}
+          </span>
         </div>
       ))}
     </div>
