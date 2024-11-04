@@ -1,4 +1,6 @@
 
+
+// sets the font used for MUI components 
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({

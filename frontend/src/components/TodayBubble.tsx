@@ -3,6 +3,8 @@ import axios from 'axios';
 import { CalendarEvent } from '../types';
 import { formatTime } from '../utility/dateUtils';
 
+// Component which displays the google events for the day on today page. It organizes the events based on Morning, Afternoon and evening.
+// events which have passed will be faded and events which are happening now will be highlighted in blue
 function TodayBubble() {
   const [dayEvents, setDayEvents] = useState<CalendarEvent[]>([]);
 

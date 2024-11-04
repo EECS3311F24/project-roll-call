@@ -11,7 +11,7 @@ import InsightsPage from './pages/InsightsPage';
 
 import DBport from './pages/DBport';
 
-
+// our main a function which has our page routes
 function App() {
   return (
     <div className="bg-custombg min-h-screen">

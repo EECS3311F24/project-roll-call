@@ -103,6 +103,12 @@ python app.py
 
 3. Click "Connect"
 
+###  **To Run the App:**
+
+- Sign in as: 
+  - saras.rollcall@gmail.com
+  - pass: eecs3311
+
 
 # Contributions
 

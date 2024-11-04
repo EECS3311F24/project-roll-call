@@ -5,6 +5,9 @@ import TodayBubble from '../components/TodayBubble';
 import WeekBubble from '../components/WeekBubble';
 import Navbar from '../components/Navbar';
 
+// this is the page which displays the all the user reports for the current day
+// current implementation includes only welcome, today and week bubbles
+// the other bubbles are place holders 
 const TodayPage = () => {
 
   const data = [
