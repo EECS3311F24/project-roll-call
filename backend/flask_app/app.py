@@ -33,19 +33,19 @@ CORS(app)
 #     users.insert_one(new_data)
 #     return jsonify(convert_id_to_string(new_data)), 201
 
-# route for getting the events from today from Google Calendar api
+# route for getting the events for today from Google Calendar API
 @app.route("/day_events", methods=['GET'])
 def get_day_events():
     events = DayEvent().get_events()
     return jsonify(events)
 
-# route for getting the upcoming events within a week from Google Calendar api
+# route for getting the events for the next week from Google Calendar API
 @app.route("/week_events", methods=['GET'])
 def get_week_events():
     events = WeekEvent().get_events()
     return jsonify(events)
 
-# route for getting the upcoming events within a month from Google Calendar api
+# route for getting the events for this month from Google Calendar API
 @app.route("/month_events", methods=['GET'])
 def get_month_events():
     events = MonthEvent().get_events()
