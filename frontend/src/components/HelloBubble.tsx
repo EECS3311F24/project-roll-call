@@ -1,5 +1,6 @@
 import React from 'react'
 
+// Component which displays the welcome message on the today page. It includes a greeting, the date and word of the day
 const HelloBubble = () => {
 
     const username = "Sara"
