@@ -51,6 +51,11 @@ or
 python app.py
 ```
 
+#### If flask not running in debug mode try:
+
+    python -m flask --app app:app run --debug
+
+
 
 
 # Running Google API

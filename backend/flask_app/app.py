@@ -5,6 +5,7 @@ from calendar_api.day_event import DayEvent
 from calendar_api.week_event import WeekEvent
 from calendar_api.month_event import MonthEvent
 
+
 app = Flask(__name__)
 
 # enable CORS so that React can communicate with Flask
@@ -48,8 +49,33 @@ def get_week_events():
 # route for getting the events for this month from Google Calendar API
 @app.route("/month_events", methods=['GET'])
 def get_month_events():
+    print("Entering /month_events route...")  # Debug route entry
     events = MonthEvent().get_events()
     return jsonify(events)
 
+# --------------------------------------------------------------------------
+@app.route("/future_events", methods=['GET'])
+def get_future_events():
+    print("Entering /future_events route...")  # Debug route entry
+
+    # Get the current time
+    now = dt.datetime.now().isoformat()
+
+    # Create a MonthEvent instance
+    month_event = MonthEvent()
+
+    # Filter events to only include future events
+    def filter_future_events(events):
+        return [
+            event for event in events
+            if event.get("start", {}).get("dateTime", "") > now
+        ]
+
+    # Apply the future filter
+    future_events = month_event.get_events(filter_function=filter_future_events)
+
+    return jsonify(future_events)
+
 if __name__ == "__main__":
-    app.run(debug = True)
+    # python -m flask --app app:app run --debug
+    app.run(debug=True)
