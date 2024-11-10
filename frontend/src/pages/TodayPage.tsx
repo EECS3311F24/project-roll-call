@@ -3,38 +3,36 @@ import SummaryBubble from '../components/SummaryBubble';
 import HelloBubble from '../components/HelloBubble';
 import TodayBubble from '../components/TodayBubble';
 import WeekBubble from '../components/WeekBubble';
+import FutureBubble from '../components/FutureBubble';
 import Navbar from '../components/Navbar';
+import TodoBubble from '../components/TodoBubble';
 
 // this is the page which displays the all the user reports for the current day
 // current implementation includes only welcome, today and week bubbles
 // the other bubbles are place holders 
 const TodayPage = () => {
 
-  const data = [
-    { id: 3, name: 'Future at a Glance', backgroundColor: '#CDBACF', content: '' },
-    { id: 4, name: 'Suggested TO-DO', backgroundColor: '#85D4FF', content: '' },
-  ];
-
   return (
     <>
-      <Navbar /> 
-      <div className="px-[100px]">
+      <div className="flex flex-col min-w-[800px] bg-custombg">
+        <Navbar />
+
         <HelloBubble />
-
-        <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
-          <TodayBubble /> 
-
-          <WeekBubble />
-
-          {data.map((summary) => (
-            <div key={summary.id}>
-              <SummaryBubble 
-                name={summary.name} 
-                content={summary.content} 
-                backgroundColor={summary.backgroundColor} 
-              />
-            </div>
-          ))}
+  
+        <div className="flex-grow px-[100px] mb-10">
+          {/* <HelloBubble /> */}
+          <div
+            className="grid gap-2"
+            style={{
+              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              maxHeight: 'calc(100vh - <Navbar height>)',
+            }}
+          >
+            <TodayBubble />
+            <WeekBubble />
+            <FutureBubble />
+            <TodoBubble />
+          </div>
         </div>
       </div>
     </>

@@ -3,6 +3,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./public/index.html",
   ],
   theme: {
     extend: {
@@ -16,5 +17,8 @@ export default {
     },
   },
   plugins: [],
+  corePlugins: {
+    preflight: true,
+  },
 }
 

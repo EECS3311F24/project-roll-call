@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
+import './index.css';
 
 import LandingPage from './pages/LandingPage';
 import TodayPage from './pages/TodayPage';
@@ -14,7 +15,7 @@ import DBport from './pages/DBport';
 // our main a function which has our page routes
 function App() {
   return (
-    <div className="bg-custombg min-h-screen">
+    <div className="h-screen bg-custombg">
     <ThemeProvider theme={theme}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
