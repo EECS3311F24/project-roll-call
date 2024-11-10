@@ -32,13 +32,9 @@ By the end of this sprint we aim:
 
 | Team Members       | Activities/Tasks                                                                                        |
 |-------------------|-----------------------------------------------------------------------------------------------------------|
-| **Karolina**      | - Note taker for Sprint 2 meeting and Sprint 2 Retrospective Meeting.<br> - Summarize and push `Sprint2.md`, `SR2.md` to main.<br> |
-| **Abhinaya**      | - Summarize standup meetings and push `Standups.md` to main.<br> | - 
-| **Joshua**        | Focus on implementing Gemini API to generate the Word/Quote of the day. <br> - Connect Google Gemini API to flask-app <br> - Generate Quote of the Day using Gemini API <br> - Generate Word of the Day using Gemini API <br> - Connect Quote/Word of the day to the frontend <br> |
-|**Karolina + Abhinaya + Christie**      | Collaborate on developing the "Future at a glance" + suggested TODO list logic and connecting it with the frontend.<br> Subtasks TBD (Sub team meeting Nov.8th) |
-| **Group Effort**  | - Update documentation<br> - Record Demo |
+| **Karolina**      | - Note taker for Sprint 2 meeting and Sprint 2 Retrospective Meeting.<br> - Summarize and push `Sprint2.md`, `SR2.md` to main.<br> - Develop the "Future at the Glance" logic <br> - Connect the "Future at a glance" api with the /today page frontend |
+| **Abhinaya**      | - Summarize standup meetings and push `Standups.md` to main.<br> - Implement the ability to launch app.py from landing page (Aka sign in users) |
+| **Joshua**        | - Connect Google Gemini API to flask-app <br> - Generate Quote of the Day using Gemini API <br> - Generate Word of the Day using Gemini API <br> - Connect Quote/Word of the day to the frontend <br> |
+|**Christie**      | - Develop the "TODO list" logic <br> - Connect the "TODO" api with the /today page frontend <br> - Implement the ability to check off items from the TODO list |
+| **Group Effort**  | - Update documentation<br> - Record Demo - `burndown.pdf` - `schedule.pdf` -  `SYSTEM DESIGN DOCUMENT.pdf` |
 
-### TBD Task Distribution:
-- `burndown.pdf`
-- `schedule.pdf`
--  `SYSTEM DESIGN DOCUMENT.pdf`
