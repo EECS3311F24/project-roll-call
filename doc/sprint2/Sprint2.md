@@ -23,7 +23,7 @@ By the end of this sprint we aim:
 | 8.5          | As Rachel (parent), I want a “Future at a glance” feature that highlights my further-reaching events because my children have appointments which are planned weeks in advance and they always sneak up on me. |
 | 2.0          | As Sara (student), I like to be able to check off items from my TODO list because it is satisfying and motivating. |
 | 9.0          | As Sara (student), I want a “Suggested TODO list” that automatically generates based on my scheduled events, helping me prioritize my tasks for the day. |
-| 5.0          | As Alex (manager), I want to be displayed a motivational quote because my job is high stress and it will remind me to stay focused and be a good leader. And I want to be displayed a word of the day because it is a fun feature which will motivate me to check RollCall every day. |
+| 5.0          | As Alex (manager), I want to be displayed a motivational quote because my job is high stress and it will remind me to stay focused and be a good leader. And I want a word of the day because it is a fun feature which will motivate me to check RollCall every day. |
 
 
 ### Team Capacity: 44 hours 
