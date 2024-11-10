@@ -29,8 +29,8 @@ class MonthEvent(Event):
         # Fetch all events from the parent class method
         all_events = super().get_events()
         
-        # filtered_events = filter_events_by_title(all_events, "TEST")
-        filtered_events = filter_events_by_color(all_events, "11")
+        filtered_events = filter_events_by_title(all_events, "TEST")
+        # filtered_events = filter_events_by_color(all_events, "11")
 
         
         # Return the filtered list
@@ -45,18 +45,17 @@ def filter_events_by_title(events, title):
 
 def filter_events_by_color(events, colorId):
     """Filters events by the given color.
-    11 = Tomato (Red)
-    4  = Flamingo (Pink)
-    6  = Tangerine (Orange)
+    11 = Tomato (Red)               Deadlines/tests     High
+    4  = Flamingo (Pink)            Workouts            Low
+    6  = Tangerine (Orange)         Appointments        High
     5  = Banana (Yellow)
     2  = Sage (Light Green)
-    10 = Basil (Dark Green)
+    10 = Basil (Dark Green)         Work                Low
     9  = Blueberry (Dark blue)
-    1  = Lavender (Light purple)
-    3  = Grape (Dark purple)
+    1  = Lavender (Light purple)    Social Events       Medium
+    3  = Grape (Dark purple)        Unique Events       Medium
     8  = Graphite (Grey)
-    -  = Peacock (Blue)  
-    // peacock is deaf
+    -  = Peacock (Blue)             Classes/Meetings    Low
     """
     #  peacock is Google's default color therefore there is no colorId field
     if colorId == "-":  
