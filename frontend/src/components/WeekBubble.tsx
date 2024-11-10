@@ -40,10 +40,15 @@ function WeekBubble() {
     }
 
     return (
-        <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
-        <div className="mx-2 border rounded-[30px] h-[420px] transition-transform duration-300 transform hover:scale-105 bg-[#a4cc8f]">
-            <div className="mt-5 text-lg text-center font-bold">Up on the Agenda This Week</div>
-            <div className="mx-3 mt-3 h-[330px] overflow-y-auto">
+        <div
+        className="mb-3 mx-2 border rounded-[30px] bg-[#a4cc8f] transition-transform duration-300 transform hover:scale-105 flex flex-col overflow-hidden"
+        style={{
+            height: 'calc(100vh - 350px)', 
+        }}
+        >
+            <div className="mt-5 text-lg text-center font-bold">Upcoming This Week</div>
+            
+            <div className="mx-3 mb-7 mt-3 mr-4 flex-1 overflow-y-auto">
             {daysOfWeek.map((day, index) => (
                 eventsByDay[index].length > 0 && (
                 <div key={day.label} className="mb-4">
@@ -58,7 +63,6 @@ function WeekBubble() {
                 )
             ))}
             </div>
-        </div>
         </div>
     );
 }

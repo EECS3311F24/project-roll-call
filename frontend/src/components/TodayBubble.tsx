@@ -59,15 +59,19 @@ function TodayBubble() {
   );
 
   return (
-    <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
-      <div className="mx-2 border rounded-[30px] h-[420px] transition-transform duration-300 transform hover:scale-105 bg-[#F2B391]">
-        <div className="mt-5 text-lg text-center font-bold">Up on the Agenda Today</div>
+    <div
+      className="mb-3 mx-2 border rounded-[30px] bg-[#F2B391] transition-transform duration-300 transform hover:scale-105 flex flex-col overflow-hidden"
+      style={{
+          height: 'calc(100vh - 350px)', // Subtract space for navbar and margins
+      }}
+    >
+  
+      <div className="mt-5 text-lg text-center font-bold">Up on the Agenda Today</div>
 
-        <div className="mx-3 mt-3">
-          {morningEvents.length > 0 && renderEvents('Morning', morningEvents)}
-          {afternoonEvents.length > 0 && renderEvents('Afternoon', afternoonEvents)}
-          {eveningEvents.length > 0 && renderEvents('Evening', eveningEvents)}
-        </div>
+      <div className="mx-3 mb-7 mt-3 flex-1 overflow-y-auto">
+        {morningEvents.length > 0 && renderEvents('Morning', morningEvents)}
+        {afternoonEvents.length > 0 && renderEvents('Afternoon', afternoonEvents)}
+        {eveningEvents.length > 0 && renderEvents('Evening', eveningEvents)}
       </div>
     </div>
   );
