@@ -6,7 +6,7 @@ from datetime import datetime
 
 # this class is a subclass of the Event class
 # it initializes the time range for events from the start of this month to the end of this month
-class MonthEvent(Event):
+class FutureEvent(Event):
     
     # constructor
     def __init__(self):

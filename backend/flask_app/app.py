@@ -3,7 +3,7 @@ from flask_cors import CORS
 from pymongo import MongoClient
 from calendar_api.day_event import DayEvent
 from calendar_api.week_event import WeekEvent
-from calendar_api.month_event import MonthEvent
+from calendar_api.future_event import FutureEvent
 
 
 app = Flask(__name__)
@@ -47,9 +47,9 @@ def get_week_events():
     return jsonify(events)
 
 # route for getting the events for this month from Google Calendar API
-@app.route("/month_events", methods=['GET'])
-def get_month_events():
-    events = MonthEvent().get_events()
+@app.route("/future_events", methods=['GET'])
+def get_future_events():
+    events = FutureEvent().get_events()
     return jsonify(events)
 
 if __name__ == "__main__":
