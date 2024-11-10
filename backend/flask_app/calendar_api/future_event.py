@@ -19,13 +19,11 @@ class FutureEvent(Event):
 
         self.time_min = start_of_month.isoformat()
         self.time_max = end_of_month.isoformat()
-        self.time_period = "month"
-
-        print(f"MonthEvent initialized with time_min={self.time_min}, time_max={self.time_max}")
+        self.time_period = "Future at a glance"
 
 
     def get_events(self):
-        print("MonthEvent get_events called...")
+        print("FutureEvent get_events called...")
         # Fetch all events from the parent class method
         all_events = super().get_events()
 
