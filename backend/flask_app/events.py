@@ -11,42 +11,40 @@ from googleapiclient.errors import HttpError
 # if modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
 
-def get_month():
-    # get the time at the beginning of the current month
-    now = get_time_now()
-    start_of_month = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-    start_of_month_iso = start_of_month.isoformat()
-    
-    days_in_month = calendar.monthrange(now.year, now.month)[1]
+# def get_month():
+#     # get the time at start of tomorrow
+#     now = get_time_now()
+#     start_of_tomorrow = (now + dt.timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+#     start_of_tomorrow_iso = start_of_tomorrow.isoformat()
 
-    # get the time at the end of the current month
-    end_of_month = (start_of_month + dt.timedelta(days=days_in_month - 1)).replace(hour=23, minute=59, second=59, microsecond=999999)
-    end_of_month_iso = end_of_month.isoformat()
+#     # get the time at the end of 6 days from now
+#     end_of_week = (now + dt.timedelta(days=6)).replace(hour=23, minute=59, second=59, microsecond=999999)
+#     end_of_week_iso = end_of_week.isoformat()
 
-    return get_events(start_of_month_iso, end_of_month_iso, "month")
+#     return get_events(start_of_tomorrow_iso, end_of_week_iso, "week")
 
-def get_week():
-    # get the time at start of tomorrow
-    now = get_time_now()
-    start_of_tomorrow = (now + dt.timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
-    start_of_tomorrow_iso = start_of_tomorrow.isoformat()
+# def get_week():
+#     # get the time at start of tomorrow
+#     now = get_time_now()
+#     start_of_tomorrow = (now + dt.timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+#     start_of_tomorrow_iso = start_of_tomorrow.isoformat()
 
-    # get the time at the end of 6 days from now
-    end_of_week = (now + dt.timedelta(days=6)).replace(hour=23, minute=59, second=59, microsecond=999999)
-    end_of_week_iso = end_of_week.isoformat()
+#     # get the time at the end of 6 days from now
+#     end_of_week = (now + dt.timedelta(days=6)).replace(hour=23, minute=59, second=59, microsecond=999999)
+#     end_of_week_iso = end_of_week.isoformat()
 
-    return get_events(start_of_tomorrow_iso, end_of_week_iso, "week")
+#     return get_events(start_of_tomorrow_iso, end_of_week_iso, "week")
 
-def get_day():
-    now = get_time_now()
+# def get_day():
+#     now = get_time_now()
 
-    # get the time at the start of the day
-    start_of_day_iso = now.replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
+#     # get the time at the start of the day
+#     start_of_day_iso = now.replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
 
-    # get the time at the end of the day
-    end_of_day_iso = now.replace(hour=23, minute=59, second=59, microsecond=999999).isoformat()
+#     # get the time at the end of the day
+#     end_of_day_iso = now.replace(hour=23, minute=59, second=59, microsecond=999999).isoformat()
 
-    return get_events(start_of_day_iso, end_of_day_iso, "day")
+#     return get_events(start_of_day_iso, end_of_day_iso, "day")
 
 def get_credentials():
     creds = None
