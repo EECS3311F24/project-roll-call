@@ -30,7 +30,7 @@ class MonthEvent(Event):
         all_events = super().get_events()
         
         # filtered_events = filter_events_by_title(all_events, "TEST")
-        filtered_events = filter_events_by_color(all_events, "-")
+        filtered_events = filter_events_by_color(all_events, "11")
 
         
         # Return the filtered list
@@ -55,11 +55,11 @@ def filter_events_by_color(events, colorId):
     1  = Lavender (Light purple)
     3  = Grape (Dark purple)
     8  = Graphite (Grey)
-    -  = Peacock (Blue)
+    -  = Peacock (Blue)  
+    // peacock is deaf
     """
-    if colorId == "-":  # Assume "-" represents Peacock (no colorId)
-        # Filter events where colorId is not present in the event
+    #  peacock is Google's default color therefore there is no colorId field
+    if colorId == "-":  
         return [event for event in events if "colorId" not in event]
     else:
-        # Filter events with the given colorId
         return [event for event in events if event.get("colorId") == colorId]
