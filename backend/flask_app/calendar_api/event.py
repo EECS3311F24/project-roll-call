@@ -77,3 +77,31 @@ class Event:
         now = dt.datetime.now(timezone)
         
         return now
+
+    def filter_events_by_color(self, events, colorId):
+        """Filters events by the given color.
+        11 = Tomato (Red)               Deadlines/tests     High
+        4  = Flamingo (Pink)            
+        6  = Tangerine (Orange)         Appointments        High
+        5  = Banana (Yellow)
+        2  = Sage (Light Green)
+        10 = Basil (Dark Green)         Work                Low
+        9  = Blueberry (Dark blue)      Workouts            Low
+        1  = Lavender (Light purple)    Social Events       Medium
+        3  = Grape (Dark purple)        Unique Events       Medium
+        8  = Graphite (Grey)
+        -  = Peacock (Blue)             Classes/Meetings    Low
+        """
+        #  peacock is Google's default color therefore there is no colorId field
+        if colorId == "-":  
+            return [event for event in events if "colorId" not in event]
+        else:
+            return [event for event in events if event.get("colorId") == colorId]
+        
+
+    # this function sorts a list of events by their start date/time in ascending order    
+    def sort_events_by_date(self, events):
+        events = sorted(
+            events,
+            key=lambda event: event.get("start").get("dateTime") or event.get("start").get("date"))
+        return events

@@ -27,11 +27,11 @@ class FutureEvent(Event):
         # Fetch all events from the parent class method
         all_events = super().get_events()
 
-        high_priority_events = filter_events_by_color(all_events, "11") + filter_events_by_color(all_events, "6")
-        high_priority_events = sort_events_by_date(high_priority_events)
+        high_priority_events = self.filter_events_by_color(all_events, "11") + super().filter_events_by_color(all_events, "6")
+        high_priority_events = self.sort_events_by_date(high_priority_events)
         
-        med_priority_events = filter_events_by_color(all_events, "1") + filter_events_by_color(all_events, "3")
-        med_priority_events = sort_events_by_date(med_priority_events)
+        med_priority_events = self.filter_events_by_color(all_events, "1") + super().filter_events_by_color(all_events, "3")
+        med_priority_events = self.sort_events_by_date(med_priority_events)
         if (len(med_priority_events) > 5):
             med_priority_events = med_priority_events[:5]
         
@@ -43,33 +43,7 @@ class FutureEvent(Event):
 
 
 # Helper functions
-def sort_events_by_date(events):
-    events = sorted(
-        events,
-        key=lambda event: event.get("start").get("dateTime") or event.get("start").get("date"))
-    return events
 
-
-def filter_events_by_color(events, colorId):
-    """Filters events by the given color.
-    11 = Tomato (Red)               Deadlines/tests     High
-    4  = Flamingo (Pink)            
-    6  = Tangerine (Orange)         Appointments        High
-    5  = Banana (Yellow)
-    2  = Sage (Light Green)
-    10 = Basil (Dark Green)         Work                Low
-    9  = Blueberry (Dark blue)      Workouts            Low
-    1  = Lavender (Light purple)    Social Events       Medium
-    3  = Grape (Dark purple)        Unique Events       Medium
-    8  = Graphite (Grey)
-    -  = Peacock (Blue)             Classes/Meetings    Low
-    """
-    #  peacock is Google's default color therefore there is no colorId field
-    if colorId == "-":  
-        return [event for event in events if "colorId" not in event]
-    else:
-        return [event for event in events if event.get("colorId") == colorId]
-    
 def filter_events_by_title(events, title):
     """Filters events by the given title."""
     return [event for event in events if event.get("summary", "").strip() == title]
