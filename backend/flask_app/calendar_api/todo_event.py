@@ -1,0 +1,69 @@
+import datetime as dt
+from .event import Event
+from datetime import datetime
+from .day_event import DayEvent
+
+
+class SuggestedToDo(Event):
+    # constructor
+    def __init__(self):
+        # calls superclass constructor
+        super().__init__()
+        
+        # we don't need a time range for to-do list, just initialize list
+        self.time_period = "Suggested To-Do List"
+        self.time_min = None
+        self.time_max = None
+
+    def get_suggested_tasks(self):
+        print("FutureEvent get_events called...")
+        # fetch all events from the parent class method
+        all_events = super().get_events()
+
+        # filter high-priority events (colorId: 11 = Deadlines/tests (red), 6 = Appointments (orange))
+        high_priority_events = self.filter_events_by_color(all_events, "11") + self.filter_events_by_color(all_events, "6")
+        high_priority_events = self.sort_events_by_date(high_priority_events)
+        
+        # limit the high-priority events to the top 5
+        if len(high_priority_events) > 5:
+            high_priority_events = high_priority_events[:5]
+
+        # DEBUG: print out the filtered high-priority events 
+        print_tasks(high_priority_events)
+
+        # Get today's events using the DayEvent class
+        day_event = DayEvent()  # Initialize the DayEvent class to get today's events
+        today_events = day_event.get_events()  # Fetch events for today
+        
+        # Print today's events (for debugging)
+        print_tasks(today_events)
+
+        # Combine the high-priority events and today's events
+        combined_events = high_priority_events + today_events
+
+        # Sort the combined events by start date/time
+        sorted_events = self.sort_events_by_date(combined_events)
+
+        # Print the combined and sorted events (for debugging)
+        print_tasks(sorted_events)
+
+        # Return the combined, sorted events
+        return sorted_events
+
+
+# Printing testing function for to-dos
+def print_tasks(tasks):
+    print("-------------------------------------------------------------")
+    for task in tasks:
+        name = task.get("summary", "No Title")
+        start = task.get("start", {})
+        date_time = start.get("dateTime")
+        
+        if date_time:
+            date, time = date_time.split('T', 1)
+        else:
+            date = start.get("date", "Unknown Date")
+            time = ""
+
+        print(f"{name.ljust(30)}: {date} - {time}")
+        print("-------------------------------------------------------------")
