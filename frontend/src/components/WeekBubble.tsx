@@ -8,8 +8,8 @@ function WeekBubble() {
 
     useEffect(() => {
         const fetchWeekEvents = async () => {
-        const response = await axios.get('http://127.0.0.1:5000/week_events');
-        setWeekEvents(response.data);
+            const response = await axios.get('http://127.0.0.1:5000/week_events');
+            setWeekEvents(response.data);
         };
         fetchWeekEvents();
     }, []);
@@ -23,7 +23,7 @@ function WeekBubble() {
         daysOfWeek.push({ date: date, label: label });
     }
 
-    const eventsByDay: CalendarEvent[][] = []
+    const eventsByDay: CalendarEvent[][] = [];
     for (let i = 0; i < daysOfWeek.length; i++) {
         const day = daysOfWeek[i];
         const dayStart = new Date(day.date);
@@ -31,11 +31,28 @@ function WeekBubble() {
         const dayEnd = new Date(day.date);
         dayEnd.setHours(23, 59, 59, 999);
 
+        // const eventsForThisDay = weekEvents.filter(event => {
+        //     const eventDate = new Date(event.start.dateTime || '');
+        //     return eventDate >= dayStart && eventDate <= dayEnd;
+        // });
+
         const eventsForThisDay = weekEvents.filter(event => {
-            const eventDate = new Date(event.start.dateTime || '');
-            return eventDate >= dayStart && eventDate <= dayEnd;
+            const eventDateTime = event.start.dateTime ? new Date(event.start.dateTime) : null;
+            const eventDate = event.start.date ? new Date(event.start.date) : null;
+
+            if (eventDateTime) {
+                return eventDateTime >= dayStart && eventDateTime <= dayEnd;
+            } else if (eventDate) {
+                return (
+                    eventDate.getFullYear() === dayStart.getFullYear() &&
+                    eventDate.getMonth() === dayStart.getMonth() &&
+                    eventDate.getDate() === dayStart.getDate()
+                )
+            }
+            return false;
         });
 
+        console.log("events: ", eventsForThisDay);
         eventsByDay.push(eventsForThisDay);
     }
 
@@ -55,7 +72,7 @@ function WeekBubble() {
                     <h2 className="mx-2 text-black font-bold">{day.label}</h2>
                     {eventsByDay[index].map(event => (
                     <div key={event.id} className="ml-5 flex items-start">
-                        <span className="font-semibold text-gray-700 whitespace-nowrap">‣ &nbsp;{formatTime(event.start.dateTime || '')}:</span>
+                        <span className="font-semibold text-gray-700 whitespace-nowrap">‣ &nbsp;{(event.start.dateTime ? formatTime(event.start.dateTime) : 'All Day')}:</span>
                         <span className="ml-2 flex-1">{event.summary}</span>
                     </div>
                     ))}

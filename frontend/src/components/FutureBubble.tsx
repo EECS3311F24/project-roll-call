@@ -30,7 +30,7 @@ function FutureBubble() {
                     weekEvents.map((event) => (
                         <div key={event.id} className="mb-4 flex items-start">
                             <span className="font-semibold text-gray-700 whitespace-nowrap">
-                                ‣ &nbsp;{formatTime(event.start.dateTime || '')}:
+                                ‣ &nbsp;{event.start.dateTime ? formatTime(event.start.dateTime) : 'All Day'}:
                             </span>
                             <span className="ml-2 flex-1">{event.summary}</span>
                         </div>

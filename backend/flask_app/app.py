@@ -53,9 +53,6 @@ def get_future_events():
     events = FutureEvent().get_events()
     return jsonify(events)
 
-if __name__ == "__main__":
-    app.run(debug=True)
-
 # route for getting the events for the suggested To-Do List from Google Calendar API
 @app.route("/to_do", methods=['GET'])
 def get_to_do():

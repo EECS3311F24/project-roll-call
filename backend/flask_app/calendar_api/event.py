@@ -39,7 +39,6 @@ class Event:
                 creds = flow.run_local_server(port=0)
             with open("token.json", "w") as token:
                 token.write(creds.to_json())
-        
         return creds
 
     # this function gets the events from Google Calendar
@@ -62,20 +61,16 @@ class Event:
             # prints to the console to test functionality (no events found in the Calendar)
             if not events:
                 print(f"No events found for the {self.time_period}.")
-            
             return events
-        
         # handles exception
         except HttpError as error:
             print(f"An error occurred: {error}")
-            
             return None
     
     # this function gets the time right now for EST time zone
     def get_time_now(self):
         timezone = pytz.timezone("America/New_York")
         now = dt.datetime.now(timezone)
-        
         return now
 
     def filter_events_by_color(self, events, colorId):
@@ -98,10 +93,26 @@ class Event:
         else:
             return [event for event in events if event.get("colorId") == colorId]
         
-
     # this function sorts a list of events by their start date/time in ascending order    
     def sort_events_by_date(self, events):
         events = sorted(
             events,
             key=lambda event: event.get("start").get("dateTime") or event.get("start").get("date"))
         return events
+
+    # this function prints received events to console, for debugging
+    def print_events(self, events):
+        print("-------------------------------------------------------------")
+        for event in events:
+            name = event.get("summary", "No Title")
+            start = event.get("start", {})
+            date_time = start.get("dateTime")
+            
+            if date_time:
+                date, time = date_time.split('T', 1)
+            else:
+                date = start.get("date", "Unknown Date")
+                time = ""
+
+            print(f"{name.ljust(30)}: {date} - {time}")
+            print("-------------------------------------------------------------")
