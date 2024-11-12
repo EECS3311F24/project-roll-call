@@ -42,7 +42,7 @@ function FutureBubble() {
                     <div key={type} className="mb-2">
                         <h2 className="mx-1 text-black font-bold">{type.charAt(0).toUpperCase() + type.slice(1)}</h2>
                         {events.map(event => (
-                            <div key={event.id} className="ml-5 pr-1 flex items-start">
+                            <div key={event.id} className="ml-3 pr-1 flex items-start">
                                 <span className="font-semibold text-gray-700 whitespace-nowrap">
                                     ‣ &nbsp;{event.start.dateTime 
                                         ? new Date(event.start.dateTime).toLocaleDateString('en-US', {month: 'short', day: 'numeric' }) 
