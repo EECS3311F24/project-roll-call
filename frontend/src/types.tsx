@@ -12,5 +12,6 @@ export interface CalendarEvent {
     end: {
         dateTime?: string;
     }
+    colorId?: string;
 
 }
