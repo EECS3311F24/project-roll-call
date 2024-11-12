@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./public/index.html",
   ],
   theme: {
     extend: {
@@ -11,14 +11,12 @@ export default {
         sans: ['Nunito', 'sans-serif'],
       },
       colors: {
-        custombg: '#D9E5D6', 
+        custombg: '#D9E5D6',
         orange: '#FFBE0A',
       },
     },
   },
-  plugins: [],
-  corePlugins: {
-    preflight: true,
-  },
-}
-
+  plugins: [
+    require('tailwind-scrollbar')({ preferredStrategy: 'pseudoelements' }),
+  ],
+};
