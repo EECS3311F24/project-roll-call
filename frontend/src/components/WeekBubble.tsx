@@ -47,14 +47,14 @@ function WeekBubble() {
         }}
         >
             <div className="mt-5 text-lg text-center font-bold">Upcoming This Week</div>
-            
-            <div className="mx-3 mb-7 mt-3 mr-4 flex-1 overflow-y-auto">
+
+            <div className="mx-3 mb-7 mt-3 mr-4 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-[#83ba67]">
             {daysOfWeek.map((day, index) => (
                 eventsByDay[index].length > 0 && (
                 <div key={day.label} className="mb-4">
                     <h2 className="mx-2 text-black font-bold">{day.label}</h2>
                     {eventsByDay[index].map(event => (
-                    <div key={event.id} className="ml-5 flex items-start">
+                    <div key={event.id} className="ml-4 pr-1 flex items-start">
                         <span className="font-semibold text-gray-700 whitespace-nowrap">‣ &nbsp;{formatTime(event.start.dateTime || '')}:</span>
                         <span className="ml-2 flex-1">{event.summary}</span>
                     </div>
