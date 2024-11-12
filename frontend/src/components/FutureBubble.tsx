@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CalendarEvent } from '../types';
-import { formatTime } from '../utility/dateUtils';
 import { getEventType } from '../utility/eventUtils';
 
 function FutureBubble() {

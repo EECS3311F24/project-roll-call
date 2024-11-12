@@ -1,5 +1,4 @@
 import React from 'react';
-import SummaryBubble from '../components/SummaryBubble';
 import HelloBubble from '../components/HelloBubble';
 import TodayBubble from '../components/TodayBubble';
 import WeekBubble from '../components/WeekBubble';
