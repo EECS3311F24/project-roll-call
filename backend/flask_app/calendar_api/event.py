@@ -47,7 +47,7 @@ class Event:
             # builds service for Google Calendar API
             service = build("calendar", "v3", credentials=self.creds)
             # print to console to test functionality
-            print (f"Getting the upcoming events for the {self.time_period}...")
+            # print (f"Getting the upcoming events for the {self.time_period}...")
             # gets the events from Google Calendar API
             events_result = service.events().list(
                 calendarId="primary",
@@ -73,6 +73,7 @@ class Event:
         now = dt.datetime.now(timezone)
         return now
 
+    # this function gets the events of a certain color
     def filter_events_by_color(self, events, colorId):
         """Filters events by the given color.
         11 = Tomato (Red)               Deadlines/tests     High
@@ -97,7 +98,8 @@ class Event:
     def sort_events_by_date(self, events):
         events = sorted(
             events,
-            key=lambda event: event.get("start").get("dateTime") or event.get("start").get("date"))
+            key=lambda event: event.get("start").get("dateTime") or event.get("start").get("date")
+        )
         return events
 
     # this function prints received events to console, for debugging
