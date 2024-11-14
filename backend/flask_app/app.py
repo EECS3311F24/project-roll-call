@@ -5,7 +5,7 @@ from calendar_api.day_event import DayEvent
 from calendar_api.week_event import WeekEvent
 from calendar_api.future_event import FutureEvent
 from calendar_api.todo_event import SuggestedToDo
-
+from gemini_api.word_gen import WordGen
 
 app = Flask(__name__)
 
@@ -53,14 +53,16 @@ def get_future_events():
     events = FutureEvent().get_events()
     return jsonify(events)
 
-if __name__ == "__main__":
-    app.run(debug=True)
-
 # route for getting the events for the suggested To-Do List from Google Calendar API
 @app.route("/to_do", methods=['GET'])
 def get_to_do():
     events = SuggestedToDo().get_suggested_tasks()
     return jsonify(events)
+
+@app.route("/generate_word", methods=['GET'])
+def get_word():
+    word = WordGen().get_word()
+    return jsonify({"word": word})
 
 if __name__ == "__main__":
     app.run(debug=True)
