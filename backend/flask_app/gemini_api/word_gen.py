@@ -10,7 +10,7 @@ class WordGen(Generator):
     # this function returns a gemini-generated word and definition
     def get_word(self):
         response = self.model.generate_content(
-            """Give me a completely random word and definition. Make the format exactly like this: '(insert word): (insert definition)', 
+            """Give me a COMPLETELY random non-explicit word and definition. Make the format exactly like this: '(insert word): (insert definition)', 
             all plain text, no bolds. Capitalize the first letter of the word and definition. Keep the definition short and succint.
             Do not use words you have used recently."""
         )
