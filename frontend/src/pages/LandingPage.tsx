@@ -2,6 +2,7 @@ import React from 'react';
 import '../LandingPage.css';
 import RollCallIcon from "../assets/RollCallIcon.png";
 import GoogleIcon from "../assets/GoogleIcon.png"
+import { useEffect } from 'react';
 import { IconButton } from '@mui/material';
 
 const roll = " Roll "
