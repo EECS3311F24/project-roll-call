@@ -1,3 +1,4 @@
+import GoogleAuth from "./components/GoogleAuth";
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
