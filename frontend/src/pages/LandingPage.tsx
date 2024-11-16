@@ -1,10 +1,9 @@
+//LandingPage.tsx
 import React from 'react';
 import '../LandingPage.css';
 import RollCallIcon from "../assets/RollCallIcon.png";
 import GoogleIcon from "../assets/GoogleIcon.png"
-import { useEffect } from 'react';
 import { IconButton } from '@mui/material';
-
 const roll = " Roll "
 
 const LandingPage = () => {
@@ -33,7 +32,7 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <div className="container-right">
+        <div className="container-right flex-auto">
           <div className="login-text pb-3">
             Login into your account
           </div>

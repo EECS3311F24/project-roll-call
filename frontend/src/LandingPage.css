@@ -87,6 +87,9 @@
     height: 25px;
     flex-shrink: 0;
 }
+.login-in-auth{
+    align-items: center;
+}
 .login-text, .sign-up-text{
     color: #FFF;
     text-align: center;
