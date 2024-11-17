@@ -1,45 +1,36 @@
 import datetime as dt
 import os.path
 import pytz
+import google_auth_oauthlib.flow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from account_api.creds_manager import CredentialsManager
 
-# if modifying these scopes, delete the file token.json
 SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
 
-# this class gets the credentials for Google Calendar and gets the events from Google Calendar
 class Event:
-
-    # constructor
-    def __init__(self):
-        # calls get_credentials and stores it in creds
-        self.creds = self.get_credentials()
-        # calls get_time_now and stores it in now
+    def __init__(self, credentials_file="credentials.json", scopes=SCOPES):
+        self.creds = CredentialsManager.load_creds(credentials_file, default_scopes=scopes)
+        if not self.creds:
+            print("No valid credentials loaded.")  # Debug no credentials
+            raise Exception("No valid credentials found. Please authenticate.")
+        if not self.creds.valid:
+            print("Credentials are not valid. Checking refresh status...")  # Debug invalid credentials
+            if self.creds.expired and self.creds.refresh_token:
+                print("Credentials expired. Refreshing...")
+                self.creds.refresh(Request())
+            else:
+                print("No valid or refreshable token. Re-authentication required.")
+                raise Exception("No valid credentials found. Please authenticate.")
         self.now = self.get_time_now()
-        # defines but does not initialize values of time range and time period (done by subclasses)
         self.time_min = None
         self.time_max = None
         self.time_period = None
+        self.scopes = scopes
 
-    # this function gets the credentials for Google Calendar
-    def get_credentials(self):
-        creds = None
-        # uses token.json if it exists which is created on the first log in to Google
-        if os.path.exists("token.json"):
-            creds = Credentials.from_authorized_user_file("token.json", SCOPES)
-        # otherwise gets and saves token
-        if not creds or not creds.valid:
-            if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
-            else:
-                flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
-                creds = flow.run_local_server(port=0)
-            with open("token.json", "w") as token:
-                token.write(creds.to_json())
-        return creds
 
     # this function gets the events from Google Calendar
     def get_events(self):
