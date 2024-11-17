@@ -36,22 +36,32 @@ CORS(app)
 #     users.insert_one(new_data)
 #     return jsonify(convert_id_to_string(new_data)), 201
 
+# creating necessary objects
+day_event = DayEvent()
+week_event = WeekEvent()
+future_event = FutureEvent()
+word_gen = WordGen()
+quote_gen = QuoteGen()
+
 # route for getting the events for today from Google Calendar API
 @app.route("/day_events", methods=['GET'])
 def get_day_events():
-    events = DayEvent().get_events()
+    events = day_event.get_events()
+    events = day_event.categorize_events(events)
     return jsonify(events)
 
 # route for getting the events for the next week from Google Calendar API
 @app.route("/week_events", methods=['GET'])
 def get_week_events():
-    events = WeekEvent().get_events()
+    events = week_event.get_events()
+    events = week_event.categorize_events(events)
     return jsonify(events)
 
 # route for getting the events for this month from Google Calendar API
 @app.route("/future_events", methods=['GET'])
 def get_future_events():
-    events = FutureEvent().get_events()
+    events = future_event.get_events()
+    events = future_event.categorize_events(events)
     return jsonify(events)
 
 # route for getting the events for the suggested To-Do List from Google Calendar API
@@ -60,14 +70,10 @@ def get_to_do():
     events = SuggestedToDo().get_suggested_tasks()
     return jsonify(events)
 
-word_gen = WordGen()
-
 @app.route("/generate_word", methods=['GET'])
 def get_word():
     word = word_gen.get_word()
     return jsonify(word)
-
-quote_gen = QuoteGen()
 
 @app.route("/generate_quote", methods=['GET'])
 def get_quote():
