@@ -18,7 +18,8 @@ class Event:
         # calls get_credentials and stores it in creds
         self.creds = self.get_credentials()
         # calls get_time_now and stores it in now
-        self.now = self.get_time_now()
+        self.timezone = pytz.timezone("America/New_York")
+        self.now = dt.datetime.now(self.timezone)
         # defines but does not initialize values of time range and time period (done by subclasses)
         self.time_min = None
         self.time_max = None
@@ -67,11 +68,23 @@ class Event:
             print(f"An error occurred: {error}")
             return None
     
-    # this function gets the time right now for EST time zone
-    def get_time_now(self):
-        timezone = pytz.timezone("America/New_York")
-        now = dt.datetime.now(timezone)
-        return now
+    # this function gets the event type based on colorId
+    def get_event_type(self, event):
+        color_id = event.get("colorId", "")
+        if color_id == "11":
+            return "Deadlines & Assessments"
+        if color_id == "6":
+            return "Appointments"
+        if color_id == "1":
+            return "Social Events"
+        if color_id == "3":
+            return "Unique Events"
+        if color_id == "10":
+            return "Works"
+        if color_id == "9":
+            return "Workouts"
+        
+        return "not found"
 
     # this function gets the events of a certain color
     def filter_events_by_color(self, events, colorId):

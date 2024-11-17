@@ -73,7 +73,7 @@ const HelloBubble = () => {
               <div className="font-bold">
                   Random Quote:
               </div>
-              "{quote}"              
+              {quote}             
           </div>
   
       </div>

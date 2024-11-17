@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CalendarEvent } from '../types';
-import { getEventType } from '../utility/eventUtils';
 
 function FutureBubble() {
-    const [FutureEvents, setFutureEvents] = useState<CalendarEvent[]>([]);
+    const [futureEvents, setFutureEvents] = useState<{type: string, events: CalendarEvent[]}[]>([]);
 
     useEffect(() => {
         const fetchFutureEvents = async () => {
@@ -12,18 +11,8 @@ function FutureBubble() {
             setFutureEvents(response.data);
         };
         fetchFutureEvents();
-    }, []);
-
-    // Group events by type
-    const eventsByType: Record<string, CalendarEvent[]> = {};
-    FutureEvents.forEach(event => {
-        const eventType = getEventType(event);
-        if (!eventsByType[eventType]) {
-            eventsByType[eventType] = [];
-        }
-        eventsByType[eventType].push(event);
-    });
-    
+        console.log(futureEvents);
+    }, []);    
 
     return (
         <div
@@ -37,23 +26,22 @@ function FutureBubble() {
             
             <div className="mx-3 mb-7 mt-3 mr-4 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-[#ac8db0]">
                 
-                {Object.entries(eventsByType).map(([type, events]) => (
-                    <div key={type} className="mb-2">
-                        <h2 className="mx-1 text-black font-bold">{type.charAt(0).toUpperCase() + type.slice(1)}</h2>
-                        {events.map(event => (
+                {futureEvents.map((eventGroup) => (
+                    <div key={eventGroup.type} className="mb-2">
+                        <h2 className="mx-1 text-black font-bold">{eventGroup.type}</h2>
+                        
+                        {eventGroup.events.map(event => (
                             <div key={event.id} className="ml-3 pr-1 flex items-start">
                                 <span className="font-semibold text-gray-700 whitespace-nowrap">
-                                    ‣ &nbsp;{event.start.dateTime 
-                                        ? new Date(event.start.dateTime).toLocaleDateString('en-US', {month: 'short', day: 'numeric' }) 
-                                        : event.start.date 
-                                        ? new Date(event.start.date).toLocaleDateString('en-US', {month: 'short', day: 'numeric' }) 
-                                        : ''}:
+                                    ‣ &nbsp;{event.day}:
                                 </span>
                                 <span className="ml-2 flex-1">{event.summary}</span>
                             </div>
                         ))}
+                        
                     </div>
                 ))}
+
             </div>
 
         </div>
