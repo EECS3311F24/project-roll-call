@@ -59,10 +59,12 @@ def get_to_do():
     events = SuggestedToDo().get_suggested_tasks()
     return jsonify(events)
 
+word_gen = WordGen()
+
 @app.route("/generate_word", methods=['GET'])
 def get_word():
-    word = WordGen().get_word()
-    return jsonify({"word": word})
+    word = word_gen.get_word()
+    return jsonify(word)
 
 if __name__ == "__main__":
     app.run(debug=True)

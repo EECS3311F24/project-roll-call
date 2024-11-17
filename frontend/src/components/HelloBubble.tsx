@@ -6,22 +6,18 @@ const HelloBubble = () => {
 
     const username = "Sara";
 
-    const [word, setWord] = useState("");
-    const [definition, setDefinition] = useState("");
+    const [wordData, setWordData] = useState({ word: '', definition: ''});
 
     useEffect(() => {
-		const fetchWord = async () => {
-			try{
-			const response = await axios.get("http://127.0.0.1:5000/generate_word");
-			console.log(response.data);
-			const [fetchedWord, ...fetchedDefinition] = response.data.word.split(": ");
-			setWord(fetchedWord.trim());
-			setDefinition(fetchedDefinition.join(": ").trim());
-			}catch (err){
-			console.error(err);
-			}
-		};
-		fetchWord();
+      const fetchWord = async () => {
+        try{
+          const response = await axios.get("http://127.0.0.1:5000/generate_word");
+          setWordData(response.data);
+        }catch (err){
+          console.error(err);
+        }
+      };
+      fetchWord();
     }, []);
     
     function todayDate() {
@@ -58,9 +54,9 @@ const HelloBubble = () => {
   
           <div className="flex-[60%] pr-7 px-4 py-6 text-right">
               <div className="font-bold">
-                  Random Word: <span className="font-extrabold">{word}</span>
+                  Random Word: <span className="font-extrabold">{wordData.word}</span>
               </div>
-              {definition}
+              {wordData.definition}
           </div>
   
       </div>
