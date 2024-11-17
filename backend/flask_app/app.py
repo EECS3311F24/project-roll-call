@@ -11,6 +11,7 @@ from calendar_api.day_event import DayEvent
 from calendar_api.week_event import WeekEvent
 from calendar_api.future_event import FutureEvent
 from calendar_api.todo_event import SuggestedToDo
+from gemini_api.word_gen import WordGen
 
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
