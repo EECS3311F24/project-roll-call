@@ -34,7 +34,7 @@ function TodoBubble() {
             <div className="mt-5 text-lg text-center font-bold">Suggested To-Do</div>
 
             {/* Content */}
-            <div className="mx-3 mb-7 mt-3 flex-1 overflow-y-auto pl-3">
+            <div className="mx-3 mb-7 mt-3 mr-4 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-[#3a46b0] pl-3">
                 {weekEvents.length > 0 ? (
                     weekEvents.map((event) => (
                         <div
