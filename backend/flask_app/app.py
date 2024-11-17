@@ -6,6 +6,7 @@ from calendar_api.week_event import WeekEvent
 from calendar_api.future_event import FutureEvent
 from calendar_api.todo_event import SuggestedToDo
 from gemini_api.word_gen import WordGen
+from gemini_api.quote_gen import QuoteGen
 
 app = Flask(__name__)
 
@@ -59,10 +60,19 @@ def get_to_do():
     events = SuggestedToDo().get_suggested_tasks()
     return jsonify(events)
 
+word_gen = WordGen()
+
 @app.route("/generate_word", methods=['GET'])
 def get_word():
-    word = WordGen().get_word()
-    return jsonify({"word": word})
+    word = word_gen.get_word()
+    return jsonify(word)
+
+quote_gen = QuoteGen()
+
+@app.route("/generate_quote", methods=['GET'])
+def get_quote():
+    quote = quote_gen.get_quote()
+    return jsonify(quote)
 
 if __name__ == "__main__":
     app.run(debug=True)
