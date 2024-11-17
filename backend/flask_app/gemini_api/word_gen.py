@@ -26,8 +26,6 @@ class WordGen(Generator):
             Keep the definition short and concise. Do not include names (including names of animals) or proper nouns."""
         )
 
-        print(char_one, char_two, char_three)
-
         word, definition = response.text.split(': ')
     
         return {"word": word, "definition": definition}
