@@ -7,6 +7,7 @@ const HelloBubble = () => {
     const username = "Sara";
 
     const [wordData, setWordData] = useState({ word: '', definition: ''});
+    const [quote, setQuote] = useState('');
 
     useEffect(() => {
       const fetchWord = async () => {
@@ -18,6 +19,18 @@ const HelloBubble = () => {
         }
       };
       fetchWord();
+    }, []);
+
+    useEffect(() => {
+      const fetchQuote = async () => {
+        try{
+          const response = await axios.get("http://127.0.0.1:5000/generate_quote");
+          setQuote(response.data);
+        }catch (err){
+          console.error(err);
+        }
+      };
+      fetchQuote();
     }, []);
     
     function todayDate() {
@@ -57,6 +70,10 @@ const HelloBubble = () => {
                   Random Word: <span className="font-extrabold">{wordData.word}</span>
               </div>
               {wordData.definition}
+              <div className="font-bold">
+                  Random Quote:
+              </div>
+              "{quote}"              
           </div>
   
       </div>
