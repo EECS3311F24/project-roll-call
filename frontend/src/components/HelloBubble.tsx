@@ -1,13 +1,38 @@
-import React from 'react'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 // Component which displays the welcome message on the today page. It includes a greeting, the date and word of the day
 const HelloBubble = () => {
 
-    const username = "Sara"
+    const username = "Sara";
 
-    const word = "Disbursement"
-    const definition = "A disbursement is a payout of money from a fund that has been created for a special purpose. Disbursement can also refer to the money that is paid out."
+    const [wordData, setWordData] = useState({ word: '', definition: ''});
+    const [quote, setQuote] = useState('');
 
+    useEffect(() => {
+      const fetchWord = async () => {
+        try{
+          const response = await axios.get("http://127.0.0.1:5000/generate_word");
+          setWordData(response.data);
+        }catch (err){
+          console.error(err);
+        }
+      };
+      fetchWord();
+    }, []);
+
+    useEffect(() => {
+      const fetchQuote = async () => {
+        try{
+          const response = await axios.get("http://127.0.0.1:5000/generate_quote");
+          setQuote(response.data);
+        }catch (err){
+          console.error(err);
+        }
+      };
+      fetchQuote();
+    }, []);
+    
     function todayDate() {
         const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
         const months = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
@@ -42,9 +67,13 @@ const HelloBubble = () => {
   
           <div className="flex-[60%] pr-7 px-4 py-6 text-right">
               <div className="font-bold">
-                  Word of the day: <span className="font-extrabold">{word}</span>
+                  Random Word: <span className="font-extrabold">{wordData.word}</span>
               </div>
-              {definition}
+              {wordData.definition}
+              <div className="font-bold">
+                  Random Quote:
+              </div>
+              {quote}             
           </div>
   
       </div>
