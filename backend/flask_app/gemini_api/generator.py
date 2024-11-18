@@ -5,5 +5,5 @@ class Generator:
 
     # constructor
     def __init__(self):
-        genai.configure(api_key = "AIzaSyBcmGr7e32c8U1lSPxMllIYiO-yQtgZNKI")
+        genai.configure(api_key = "AIzaSyBxKLUxqvqlv87q67QodXN5GirOvXHtZ6k")
         self.model = genai.GenerativeModel("gemini-1.5-flash")
