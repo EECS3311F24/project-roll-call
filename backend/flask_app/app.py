@@ -12,6 +12,7 @@ from calendar_api.week_event import WeekEvent
 from calendar_api.future_event import FutureEvent
 from calendar_api.todo_event import SuggestedToDo
 from gemini_api.word_gen import WordGen
+from gemini_api.quote_gen import QuoteGen
 
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
@@ -40,22 +41,29 @@ CORS(app)
 
 # routes for getting different events + todo list + word of day
 #------------------------------------------------------------------------------------------
+
 # route for getting the events for today from Google Calendar API
 @app.route("/day_events", methods=['GET'])
 def get_day_events():
-    events = DayEvent().get_events()
+    day_event = DayEvent()
+    events = day_event.get_events()
+    events = day_event.categorize_events(events)
     return jsonify(events)
 
 # route for getting the events for the next week from Google Calendar API
 @app.route("/week_events", methods=['GET'])
 def get_week_events():
-    events = WeekEvent().get_events()
+    week_event = WeekEvent()
+    events = week_event.get_events()
+    events = week_event.categorize_events(events)
     return jsonify(events)
 
 # route for getting the events for this month from Google Calendar API
 @app.route("/future_events", methods=['GET'])
 def get_future_events():
-    events = FutureEvent().get_events()
+    future_event = FutureEvent()
+    events = future_event.get_events()
+    events = future_event.categorize_events(events)
     return jsonify(events)
 
 # route for getting the events for the suggested To-Do List from Google Calendar API
@@ -66,8 +74,15 @@ def get_to_do():
 
 @app.route("/generate_word", methods=['GET'])
 def get_word():
-    word = WordGen().get_word()
-    return jsonify({"word": word})
+    word_gen = WordGen()
+    word = word_gen.get_word()
+    return jsonify(word)
+
+@app.route("/generate_quote", methods=['GET'])
+def get_quote():
+    quote_gen = QuoteGen()
+    quote = quote_gen.get_quote()
+    return jsonify(quote)
 
 
 # Routes to google account authorization (Using OAuth 2.0 for Web Server Applications)
