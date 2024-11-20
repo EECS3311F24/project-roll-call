@@ -89,12 +89,9 @@ pip install -r requirements.txt
 
 5. Start the Server
 ```
-flask run
-```
-or 
-```
 python app.py
 ```
+
 
 ### Backend (Database)
 1. Install MongoDB https://www.mongodb.com/try/download/community?tck=docs_server (ensure MongoDB Compass installation is selected)

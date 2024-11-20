@@ -7,6 +7,11 @@ import { IconButton } from '@mui/material';
 const roll = " Roll "
 
 const LandingPage = () => {
+  
+  const login = async () => {
+    window.location.href = 'http://localhost:5000/authorize';
+  };
+
   return (
     <>
       <div className="flex w-full">
@@ -36,7 +41,7 @@ const LandingPage = () => {
           <div className="login-text pb-3">
             Login into your account
           </div>
-          <button className="log-in">
+          <button onClick={login} className="log-in">
             <img src={GoogleIcon} alt="" className="icon" />
             Log in
           </button>
