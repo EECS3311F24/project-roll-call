@@ -1,16 +1,18 @@
 import os
 import flask
 import requests
-from flask_cors import CORS
 import json
-
+from flask_cors import CORS
 from flask import Flask, request, redirect, session, url_for, jsonify
 
-from pymongo import MongoClient
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
+
 from calendar_api.day_event import DayEvent
 from calendar_api.week_event import WeekEvent
 from calendar_api.future_event import FutureEvent
 from calendar_api.todo_event import SuggestedToDo
+
 from gemini_api.word_gen import WordGen
 from gemini_api.quote_gen import QuoteGen
 
@@ -92,7 +94,6 @@ def get_quote():
 def index():
   return print_index_table()
 
-
 @app.route('/authorize')
 def authorize():
   # Create flow instance to manage the OAuth 2.0 Authorization Grant Flow steps.
@@ -145,7 +146,6 @@ def oauth2callback():
   features = check_granted_scopes(credentials)
   flask.session['features'] = features
   return redirect('http://localhost:3000/today')
-  
 
   # @app.route('/drive')
 # def drive_api_request():
@@ -191,8 +191,6 @@ def calendar_api_request():
         # User didn't authorize Calendar read permission.
         # Update UX and application accordingly
         return '<p>Calendar feature is not enabled.</p>'
-
-
 
 @app.route('/revoke')
 def revoke():
@@ -266,29 +264,16 @@ def print_index_table():
 
 # Routes to MongoDB (sprint 3)
 # ----------------------------------------------------------------------------------------
-# # set up MongoDB
-# client = MongoClient("mongodb://localhost:27017/")
-# db = client["appDB"]
-# users = db["users"]
+# set up MongoDB
 
-# # helper function to convert db document ID into a string
-# def convert_id_to_string(doc):
-#     doc['_id'] = str(doc['_id'])
-#     return doc
+uri = "mongodb+srv://joshua22:T6zDcrxKtMTNOUpE@rollcall.o7mxm.mongodb.net/?retryWrites=true&w=majority&appName=RollCall"
+client = MongoClient(uri, server_api=ServerApi('1'))
 
-# # route for getting data from db
-# @app.route("/api/data", methods=['GET'])
-# def get_data():
-#     data = [convert_id_to_string(item) for item in users.find()]
-#     return jsonify(data)
-
-# # route for adding new data into the db
-# @app.route("/api/data", methods=['POST'])
-# def post_data():
-#     new_data = request.json
-#     users.insert_one(new_data)
-#     return jsonify(convert_id_to_string(new_data)), 201
-
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
 
 if __name__ == '__main__':
   # When running locally, disable OAuthlib's HTTPs verification.
