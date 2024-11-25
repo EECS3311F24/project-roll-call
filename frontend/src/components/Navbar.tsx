@@ -15,6 +15,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 // This is a navigation bar component which routes to different pages
 const pages = [
+  { label: 'Dashboard', path: '/dashboard' },
   { label: 'Today', path: '/today' },
   { label: 'Yesterday', path: '/yesterday' },
   { label: 'History', path: '/history' },
