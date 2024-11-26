@@ -28,8 +28,9 @@
     font-family: Nunito;
     font-size: 24px;
     font-weight: 700;
-    padding-top: 32px;
+    padding-top:25px;
     padding-bottom: 32px;
+    padding-left: 250px;
 }
 .sub-heading-text{
     color: #000;
@@ -41,4 +42,15 @@
     line-height: normal;
     padding-top: 20px;
     padding-right: 35px;
+}
+.sub-sub-heading-text{
+    color: #000;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding-top: 20px;
+    padding-right: 35px;    
 }
