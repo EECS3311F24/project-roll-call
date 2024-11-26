@@ -28,7 +28,10 @@ CLIENT_SECRETS_FILE = "client_secret.json"
 # The OAuth 2.0 access scope allows for access to the
 # authenticated user's account and requires requests to use an SSL connection.
 SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly',
-          'https://www.googleapis.com/auth/calendar.readonly']
+          'https://www.googleapis.com/auth/calendar.readonly',
+          'https://www.googleapis.com/auth/contacts.readonly',
+          'https://www.googleapis.com/auth/userinfo.profile',
+          'https://www.googleapis.com/auth/userinfo.email']
 API_SERVICE_NAME = 'drive'
 API_VERSION = 'v2'
 
@@ -85,6 +88,7 @@ def get_quote():
     quote_gen = QuoteGen()
     quote = quote_gen.get_quote()
     return jsonify(quote)
+
 
 
 # Routes to google account authorization (Using OAuth 2.0 for Web Server Applications)
@@ -237,6 +241,11 @@ def check_granted_scopes(credentials):
     features['calendar'] = True
   else:
     features['calendar'] = False
+
+  if 'https://www.googleapis.com/auth/contacts.readonly' in credentials['granted_scopes']:
+    features['profile'] = True
+  else:
+    features['profile'] = False
 
   return features
 
