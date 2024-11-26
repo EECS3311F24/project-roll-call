@@ -103,9 +103,6 @@ const SwitchWQ = styled(Switch)(({ theme }) => ({
 export default function CustomizedSwitches() {
   return (
     <>
-            <div className="sub-heading-text ">
-              Customize your Greeting
-            </div >
             <FormGroup>
                <FormControlLabel
                  control={<SwitchWQ sx={{ m: 1 }} defaultChecked />}
