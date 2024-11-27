@@ -1,7 +1,6 @@
 import React from 'react';
 import '../LandingPage.css';
 import RollCallIcon from "../assets/RollCallIcon.png";
-import GoogleIcon from "../assets/GoogleIcon.png"
 import GoogleLogo from "../assets/googleLogo.svg"
 import { IconButton } from '@mui/material';
 
@@ -9,10 +8,6 @@ const roll = " Roll "
 
 const LandingPage = () => {
   
-  // const signup = async () => {
-  //   window.location.href = 'http://localhost:5000/auth/signup';
-  // };
-
   const login = async () => {
     window.location.href = 'http://localhost:5000/auth/login';
   };
