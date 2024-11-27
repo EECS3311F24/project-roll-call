@@ -21,9 +21,7 @@ const DashboardPage = () => {
                         Customize your Greeting
                       </div > 
 
-                      <div className='pt-44'>
-                        <SwitchWQ/>
-                      </div>
+                      <SwitchWQ/>
                       <SwitchPC/>
                       <YesNo/>  
                       <SliderFG/>                

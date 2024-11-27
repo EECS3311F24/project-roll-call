@@ -86,7 +86,7 @@ const SwitchCP = styled(Switch)(({ theme }) => ({
       fontSize: '12px',
       color: '#656C79',
       position: 'absolute',
-      left: '23px',
+      left: '30px',
     },
     '&::after': {
       content: "'Priority'",
@@ -94,7 +94,7 @@ const SwitchCP = styled(Switch)(({ theme }) => ({
       fontSize: '12px',
       color: '#656C79',
       position: 'absolute',
-      right: '23px',
+      right: '30px',
     },
   },
 }));
