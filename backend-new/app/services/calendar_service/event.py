@@ -40,15 +40,15 @@ class Event:
             scopes=user.creds.scopes,
         )
 
-        # Check if the token is expired and refresh it if needed
-        if creds.expired and creds.refresh_token:
-            try:
-                creds.refresh(Request())
-                # Update the database with the refreshed token
-                user.creds.token = creds.token
-                user.save()
-            except Exception as e:
-                raise Exception(f"Failed to refresh the access token: {e}")
+        # # Check if the token is expired and refresh it if needed
+        # if creds.expired and creds.refresh_token:
+        #     try:
+        #         creds.refresh(Request())
+        #         # Update the database with the refreshed token
+        #         user.creds.token = creds.token
+        #         user.save()
+        #     except Exception as e:
+        #         raise Exception(f"Failed to refresh the access token: {e}")
             
         # Return the Google Calendar API service
         return build("calendar", "v3", credentials=creds)

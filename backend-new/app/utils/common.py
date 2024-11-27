@@ -27,7 +27,8 @@ def check_granted_scopes(credentials):
         "drive": "https://www.googleapis.com/auth/drive.metadata.readonly" in credentials["scopes"],
         "calendar": "https://www.googleapis.com/auth/calendar.readonly" in credentials["scopes"],
         "profile": "https://www.googleapis.com/auth/userinfo.profile" in credentials["scopes"],
-        "email": "https://www.googleapis.com/auth/userinfo.email" in credentials["scopes"]
+        "email": "https://www.googleapis.com/auth/userinfo.email" in credentials["scopes"],
+        "send-email": "https://www.googleapis.com/auth/gmail.send" in credentials["scopes"],
     }
     return features  
 

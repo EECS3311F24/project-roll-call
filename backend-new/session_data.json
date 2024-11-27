@@ -3,9 +3,10 @@
         "drive": false,
         "calendar": true,
         "profile": true,
-        "email": true
+        "email": true,
+        "send-email": true
     },
-    "state": "6Pb5JhlPCTa0NP7DT0gxytVRWgEkI4",
+    "state": "imZTbANIxGKXehOll29fJCBBgqmoNY",
     "user": {
         "id": "110125061098661425360",
         "email": "saras.rollcall@gmail.com"

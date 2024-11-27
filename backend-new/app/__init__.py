@@ -33,6 +33,9 @@ def create_app():
     from app.routes.gemini import gem
     app.register_blueprint(gem, url_prefix="/gem")
 
+    from app.routes.reports import report
+    app.register_blueprint(report, url_prefix="/report")
+
     return app
 
 
