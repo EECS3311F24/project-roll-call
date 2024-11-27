@@ -1,11 +1,10 @@
 from flask import redirect, session, request, url_for, jsonify
 from app.services.auth_service import initiate_google_auth, handle_oauth_callback, decode_google_id_token
 from app.utils.common import credentials_to_dict, serialize_document, save_session
-from app.services.user_service import create_user, get_user, user_in_db
+from app.services.user_service import create_user, get_user, user_in_db, store_creds
 import json
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
-from app.db import get_db
 from . import auth
 import requests
 from bson import ObjectId
@@ -27,30 +26,25 @@ def login():
 def callback():
     try:
         redirect_uri = url_for("auth.callback", _external=True)
-        credentials = handle_oauth_callback(request.url, redirect_uri)
-        user_info = decode_google_id_token(credentials["id_token"])
+        credentials_dict, id_token = handle_oauth_callback(request.url, redirect_uri)
+        user_info = decode_google_id_token(id_token)
+
+        # store the user in the session
+        session["user"] = {
+            "id": user_info["google_id"], 
+            "email": user_info["email"],
+        }
+        save_session()  # just for debugging
 
         # User already exists !
-        if user_in_db(user_info["google_id"]):  # Use "sub" for the Google ID
-            user = get_user(user_info["google_id"])
-
-            session["user"] = {
-                "google_id": str(user["google_id"]), 
-                "email": user["email"],
-            }
-            save_session()
+        if user_in_db(user_info["google_id"]): 
             # redirect to main page
             return redirect("http://localhost:3000/today")
         
         # new user !
         else:
-            user = create_user(user_info)
-            # Store user data in the session (optional)
-            session["user"] = {
-                "id": str(user["google_id"]), 
-                "email": user["email"],
-            }
-            save_session()
+            user = create_user(user_info) 
+            store_creds(user, credentials_dict)
             # redirect to the user dashboard to get their settings 
             return redirect("http://localhost:3000/dashboard")
 
@@ -97,36 +91,4 @@ def debug_session_cookie():
 def test():
     return "Auth Blueprint is working!"
 
-@auth.route("/test_redirect")
-def test_redirect():
-    """
-    Temporary test route to display session data after login.
-    """
-    from flask import jsonify
-
-    # Check if credentials are in session
-    credentials = session.get("credentials")
-    if not credentials:
-        return "No credentials found in session. Please log in again.", 401
-
-    # Display session data
-    return jsonify({
-        "message": "OAuth flow successful!",
-        "user_features": session.get("features"),
-        "user_credentials": credentials
-    })
-
-@auth.route("/users_mongo")
-def users_mongo():
-    """
-    Test MongoDB connection and return all users in the 'users' collection.
-    """
-    db = get_db()
-    users_collection = db["users"]
-
-    users = users_collection.find()
-
-    users_list = [serialize_document(user) for user in users]
-
-    return jsonify(users_list)
 

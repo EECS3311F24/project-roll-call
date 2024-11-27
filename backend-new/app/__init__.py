@@ -3,6 +3,7 @@ from datetime import timedelta
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
+from mongoengine import connect
 
 
 def create_app():
@@ -19,6 +20,8 @@ def create_app():
 
     print(f"App initialized with secret key: {app.secret_key}") 
 
+    # Initialize MongoEngine
+    init_db()
 
     # Register Blueprints
     from app.routes.auth import auth
@@ -30,9 +33,21 @@ def create_app():
     from app.routes.gemini import gem
     app.register_blueprint(gem, url_prefix="/gem")
 
-    # @app.before_request
-    # def log_secret_key():
-    #     print(f"Secret key for this request: {app.secret_key}") 
-
-
     return app
+
+
+def init_db():
+    """
+    Initializes the MongoDB connection using MongoEngine.
+    """
+    mongo_uri = os.getenv("MONGO_URI")
+    db_name = os.getenv("MONGO_DB_NAME", "test")  # Default to "test" if not defined
+
+    if not mongo_uri:
+        raise ValueError("MONGO_URI is not defined in the environment.")
+
+    # Connect to the MongoDB using MongoEngine
+    connect(
+        db=db_name,
+        host=mongo_uri,
+    )

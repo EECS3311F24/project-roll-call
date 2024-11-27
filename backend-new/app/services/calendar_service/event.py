@@ -6,6 +6,7 @@ from flask import session
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from ...models import User
 
 
 class Event:
@@ -20,19 +21,27 @@ class Event:
         """
         Retrieves the Google Calendar API service using credentials from the session.
         """
-        print(session)
-        if "credentials" not in session:
-            raise Exception("User is not authenticated.")
+        # Extract user_google_id from the session
+        user_google_id = session.get("user", {}).get("id")
+        if not user_google_id:
+            raise Exception("User is not authenticated. Missing user ID in session.")
 
-        stored_credentials = session["credentials"]
+        # Fetch the user from the database
+        user = User.objects(google_id=user_google_id).first()
+        if not user or not user.creds:
+            raise Exception("User is not authenticated or credentials are missing.")
+        
+        # Construct the Credentials object using the stored credentials
         creds = Credentials(
-            token=stored_credentials["token"],
-            refresh_token=stored_credentials.get("refresh_token"),
-            token_uri=stored_credentials["token_uri"],
-            client_id=stored_credentials["client_id"],
-            client_secret=stored_credentials["client_secret"],
-            scopes=stored_credentials["scopes"],
+            token=user.creds.token,
+            refresh_token=user.creds.refresh_token,
+            token_uri=user.creds.token_uri,
+            client_id=user.creds.client_id,
+            client_secret=user.creds.client_secret,
+            scopes=user.creds.scopes,
         )
+        
+        # Return the Google Calendar API service
         return build("calendar", "v3", credentials=creds)
 
 
