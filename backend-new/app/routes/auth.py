@@ -38,13 +38,15 @@ def callback():
 
         # User already exists !
         if user_in_db(user_info["google_id"]): 
+            user = get_user(user_info["google_id"])
+            store_creds(user, credentials_dict)  # update creds on login
             # redirect to main page
             return redirect("http://localhost:3000/today")
         
         # new user !
         else:
             user = create_user(user_info) 
-            store_creds(user, credentials_dict)
+            store_creds(user, credentials_dict)  # store creds on signup
             # redirect to the user dashboard to get their settings 
             return redirect("http://localhost:3000/dashboard")
 
