@@ -1,3 +1,7 @@
+from google.oauth2 import id_token
+from google.auth.transport import requests as google_request
+
+
 def credentials_to_dict(credentials):
     """
     Converts credentials object to a dictionary for easy handling.
@@ -6,8 +10,8 @@ def credentials_to_dict(credentials):
         "token": credentials.token,
         "refresh_token": credentials.refresh_token,
         "token_uri": credentials.token_uri,
-        "client_id": credentials.client_id,
-        "client_secret": credentials.client_secret,
+        # "client_id": credentials.client_id,
+        # "client_secret": credentials.client_secret,
         "scopes": credentials.scopes,
     }
  
@@ -22,3 +26,11 @@ def check_granted_scopes(credentials):
         "profile": "https://www.googleapis.com/auth/userinfo.profile" in credentials["scopes"],
     }
     return features  
+
+def serialize_document(doc):
+    """
+    Converts MongoDB document ObjectId fields to strings.
+    """
+    if "_id" in doc:
+        doc["_id"] = str(doc["_id"])
+    return doc
