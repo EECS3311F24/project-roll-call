@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from mongoengine import connect
 from flask import g  # Flask's request-scoped global
 import os
 from dotenv import load_dotenv
