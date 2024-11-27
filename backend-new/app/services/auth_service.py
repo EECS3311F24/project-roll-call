@@ -44,14 +44,12 @@ def handle_oauth_callback(authorization_response, redirect_uri):
     flow.fetch_token(authorization_response=authorization_response)
     credentials = flow.credentials
 
-    credentials_dict = credentials_to_dict(credentials)
-    id_token = credentials.id_token
+    credentials_dict = credentials_to_dict(credentials)  # to be used to access google calendar api
+    id_token = credentials.id_token                      # to be used to create a user account 
 
     # Check which scopes user granted
     features = check_granted_scopes(credentials_dict)
     session['features'] = features
-
-    save_session()  # just for debugging
 
     # Return the dictionary instead of the object
     return credentials_dict, id_token
