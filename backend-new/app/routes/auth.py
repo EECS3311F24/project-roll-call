@@ -1,10 +1,13 @@
 from flask import redirect, session, request, url_for, jsonify
 from app.services.auth_service import initiate_google_auth, handle_oauth_callback, decode_google_id_token
-from app.utils.common import credentials_to_dict, serialize_document
+from app.utils.common import credentials_to_dict, serialize_document, save_session
 from app.services.user_service import create_user, get_user, user_in_db
 import json
+import google.oauth2.credentials
+import google_auth_oauthlib.flow
 from app.db import get_db
 from . import auth
+import requests
 from bson import ObjectId
 
 
@@ -25,31 +28,29 @@ def callback():
     try:
         redirect_uri = url_for("auth.callback", _external=True)
         credentials = handle_oauth_callback(request.url, redirect_uri)
-
         user_info = decode_google_id_token(credentials["id_token"])
 
-        # user already exists !
-        if (user_in_db(user_info["google_id"])):
+        # User already exists !
+        if user_in_db(user_info["google_id"]):  # Use "sub" for the Google ID
             user = get_user(user_info["google_id"])
 
-            # Store user data in the session (optional)
             session["user"] = {
-                "id": str(user["_id"]),  # MongoDB document ID
+                "google_id": str(user["google_id"]), 
                 "email": user["email"],
-                "token": credentials["token"]
             }
+            save_session()
             # redirect to main page
-            return redirect("http://localhost:3000/test")
+            return redirect("http://localhost:3000/today")
         
         # new user !
         else:
             user = create_user(user_info)
             # Store user data in the session (optional)
             session["user"] = {
-                "id": str(user["google_id"]),  # MongoDB document ID
+                "id": str(user["google_id"]), 
                 "email": user["email"],
-                "token": credentials["token"]
             }
+            save_session()
             # redirect to the user dashboard to get their settings 
             return redirect("http://localhost:3000/dashboard")
 
@@ -67,7 +68,31 @@ def logout():
     return "You have been logged out, check logs!"
 
 
+
+# @auth.route('/revoke')
+# def revoke():
+#     if 'credentials' not in session:
+#         return ('You need to <a href="/authorize">authorize</a> before ' 
+#                 +'testing the code to revoke credentials.')
+    
+#     credentials = session['credentials']
+#     token = credentials["token"]
+    
+#     revoke = requests.post('https://oauth2.googleapis.com/revoke',
+#         params={'token': token},
+#         headers = {'content-type': 'application/x-www-form-urlencoded'})
+
+#     status_code = getattr(revoke, 'status_code')
+#     return(status_code)
+
+
 ### TESTING ROUTES ----------------------------------------------------------------
+
+@auth.route('/debug_session_cookie')
+def debug_session_cookie():
+    print(f"Session cookie: {request.cookies.get('session')}")
+    return "Check logs for session cookie."
+
 @auth.route("/test")
 def test():
     return "Auth Blueprint is working!"

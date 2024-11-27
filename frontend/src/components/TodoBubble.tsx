@@ -1,17 +1,24 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CalendarEvent } from '../types';
-import { formatTime } from '../utility/dateUtils';
 
 function TodoBubble() {
     const [weekEvents, setWeekEvents] = useState<CalendarEvent[]>([]);
-    const [completedTasks, setCompletedTasks] = useState<{ [key: string]: boolean }>({}); // Track completed tasks
+    const [completedTasks, setCompletedTasks] = useState<{ [key: string]: boolean }>({});
+
+    // Fetch events from the backend
+    const fetchToDo = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/cal/to_do', {
+                withCredentials: true, // Ensure credentials are sent
+            });
+            setWeekEvents(response.data);
+        } catch (error) {
+            console.error('Error fetching to-do events:', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchToDo = async () => {
-            const response = await axios.get('http://127.0.0.1:5000/to_do');
-            setWeekEvents(response.data);
-        };
         fetchToDo();
     }, []);
 
@@ -61,3 +68,4 @@ function TodoBubble() {
 }
 
 export default TodoBubble;
+
