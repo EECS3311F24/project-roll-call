@@ -19,7 +19,7 @@ from flask import session
 from app.models import User
 
 
-def gmail_send_message():
+def gmail_send_message(recipient):
   """Create and send an email message
   Print the returned  message id
   Returns: Message object, including message id
@@ -68,7 +68,7 @@ def gmail_send_message():
 
     message.set_content("This is automated draft mail")
 
-    message["To"] = "saras.rollcall@gmail.com"
+    message["To"] = recipient
     message["From"] = "saras.rollcall@gmail.com"
     message["Subject"] = "Automated draft"
 
