@@ -2,15 +2,22 @@ import React from 'react';
 import '../LandingPage.css';
 import RollCallIcon from "../assets/RollCallIcon.png";
 import GoogleIcon from "../assets/GoogleIcon.png"
+import GoogleLogo from "../assets/googleLogo.svg"
 import { IconButton } from '@mui/material';
 
 const roll = " Roll "
 
 const LandingPage = () => {
   
+  // const signup = async () => {
+  //   window.location.href = 'http://localhost:5000/auth/signup';
+  // };
+
   const login = async () => {
-    window.location.href = 'http://localhost:5000/authorize';
+    window.location.href = 'http://localhost:5000/auth/login';
   };
+
+
 
   return (
     <>
@@ -39,20 +46,12 @@ const LandingPage = () => {
 
         <div className="container-right">
           <div className="login-text pb-3">
-            Login into your account
+             Ready for your roll call?
           </div>
-          <button onClick={login} className="log-in">
-            <img src={GoogleIcon} alt="" className="icon" />
-            Log in
+          <button onClick={login}className="log-in">
+            <img src={GoogleLogo} />
           </button>
 
-          <div className="sign-up-text pt-20 pb-3">
-            New here?
-          </div>
-          <button className="sign-up">
-            <img src={GoogleIcon} alt="" className="icon" />
-            Sign up with Google
-          </button>
         </div>
       </div>
     </>

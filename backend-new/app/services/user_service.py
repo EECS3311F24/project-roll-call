@@ -39,4 +39,11 @@ def get_user(google_id):
     # Check if the user already exists
     return users.find_one({"google_id": google_id})
 
+def user_in_db(google_id):
+    db = get_db()
+    users = db["users"] 
+    return bool(users.find_one({"google_id": google_id}))
+
+
+
     
