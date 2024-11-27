@@ -1,10 +1,9 @@
 import datetime as dt
-import os.path
 import pytz
-import google_auth_oauthlib.flow
 from flask import session
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
+from google.auth.transport.requests import Request
 from googleapiclient.errors import HttpError
 from ...models import User
 
@@ -40,7 +39,17 @@ class Event:
             client_secret=user.creds.client_secret,
             scopes=user.creds.scopes,
         )
-        
+
+        # Check if the token is expired and refresh it if needed
+        if creds.expired and creds.refresh_token:
+            try:
+                creds.refresh(Request())
+                # Update the database with the refreshed token
+                user.creds.token = creds.token
+                user.save()
+            except Exception as e:
+                raise Exception(f"Failed to refresh the access token: {e}")
+            
         # Return the Google Calendar API service
         return build("calendar", "v3", credentials=creds)
 
