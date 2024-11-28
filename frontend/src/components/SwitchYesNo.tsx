@@ -5,7 +5,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 import '../DashboardPage.css';
 
-const YesNo = styled(Switch)(({ theme }) => ({
+const SwitchYesNo = styled(Switch)(({ theme }) => ({
   width: 100,
   height: 48,
   padding: 6,
@@ -13,11 +13,12 @@ const YesNo = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase': {
     margin: 8,
     padding: 0,
-    transform: 'translateX(1px)',
+    transform: 'translateX(-1px)',
+    top: '-1px',
 
     '&.Mui-checked': {
       color: '#fff',
-      transform: 'translateX(38px)',
+      transform: 'translateX(39.5px)',
 
       '& .MuiSwitch-thumb:before': {
         content: "'No'",
@@ -44,7 +45,7 @@ const YesNo = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-thumb': {
     backgroundColor: '#32A6F9',
     width: 46,
-    height: 32,
+    height: 34,
     borderRadius: 45,
     display: 'flex',
     justifyContent: 'center',
@@ -108,7 +109,7 @@ export default function CustomizedSwitches() {
             </div >
             <FormGroup>
                <FormControlLabel
-                 control={<YesNo sx={{ m: 1 }} defaultChecked />}
+                 control={<SwitchYesNo sx={{ m: 1 }} defaultChecked />}
                  label=""
                />
             </FormGroup>

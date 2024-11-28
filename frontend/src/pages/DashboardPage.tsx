@@ -3,7 +3,7 @@ import '../DashboardPage.css';
 import Navbar from '../components/Navbar';
 import SwitchWQ from '../components/SwitchWQ';
 import SwitchPC from '../components/SwitchCP';
-import YesNo from '../components/YesNo';
+import SwitchYesNo from '../components/SwitchYesNo';
 import SliderFG from '../components/SliderFG';
 
 const DashboardPage = () => {
@@ -23,7 +23,7 @@ const DashboardPage = () => {
 
                       <SwitchWQ/>
                       <SwitchPC/>
-                      <YesNo/>  
+                      <SwitchYesNo/>  
                       <SliderFG/>                
                     </div>
                     

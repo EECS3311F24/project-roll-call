@@ -14,10 +14,11 @@ const SwitchCP = styled(Switch)(({ theme }) => ({
     margin: 8,
     padding: 0,
     transform: 'translateX(-1px)',
+    top: '-0.5px',
 
     '&.Mui-checked': {
       color: '#fff',
-      transform: 'translateX(85px)',
+      transform: 'translateX(84px)',
 
       '& .MuiSwitch-thumb:before': {
         content: "'Priority'",
