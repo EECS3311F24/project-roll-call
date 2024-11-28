@@ -4,25 +4,22 @@
 This repository contains the backend for a Flask application designed to help users manage their tasks, track progress, and gain insights into their productivity.
 
 ## Requirements
-- Python 3.x
+- Python 3.12
 - Flask
 - Additional dependencies specified in `requirements.txt`
 
 ## Getting Started
 
 
-### 1. Clone the Repository
-First, clone the repository to your local machine:
-
+### 1. Make sure you are in the backend
 ```bash
-git clone https://github.com/EECS3311F24/project-roll-call/
-cd backend/flask_app
+cd backend
 ```
 
 
 ### 2. Create and activate the virtual environment
 ```bash
-python -m venv venv
+python3.12 -m venv venv
 ```
 
 On Windows:
@@ -44,43 +41,22 @@ pip install -r requirements.txt
 
 ### 4. Start the Application
 ```bash
-flask run
-```
-or 
-```bash
-python app.py
+python run.py
 ```
 
-#### If flask not running in debug mode try:
+### 5. Sign in with Sara Smith
+When entering the website through the google authentication
+  - saras.rollcall@gmail.com
+  - pass: eecs3311
 
-    python -m flask --app app:app run --debug
 
-
-
-
-# Running Google API
-
-Make sure requirements are installed
-
-    pip install -r requirements.txt
-
-run quickstart in terminal (do not worry if imports are highlighted in red)
-
-    python quickstart.py
-
-- this should open a Google authorization window
-- return the next 10 scheduled events
-- you only have to sign in once, as a token will be created which will be used the next time.
-- To sign into another account, delete the token.json
-
-###  **To access the Google Project:**
-
+#  **To access the Google Project Dashboard:**
 - Go to: https://console.cloud.google.com/
 - Sign in as: 
   - saras.rollcall@gmail.com
   - pass: eecs3311
 
-To retrieve info from your own personal account you need to add your account as a test user: 
+To retrieve info from your own personal account you need to add your account as a test user:  (NOT TESTED YET)
 https://console.cloud.google.com/apis/credentials/consent?project=rollcall-440018
 
 
