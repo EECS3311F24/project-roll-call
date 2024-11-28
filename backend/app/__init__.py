@@ -44,7 +44,7 @@ def init_db():
     Initializes the MongoDB connection using MongoEngine.
     """
     mongo_uri = os.getenv("MONGO_URI")
-    db_name = os.getenv("MONGO_DB_NAME", "test")  # Default to "test" if not defined
+    db_name = os.getenv("DATABASE_NAME")
 
     if not mongo_uri:
         raise ValueError("MONGO_URI is not defined in the environment.")
