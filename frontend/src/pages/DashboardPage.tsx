@@ -5,6 +5,7 @@ import SwitchWQ from '../components/SwitchWQ';
 import SwitchPC from '../components/SwitchCP';
 import SwitchYesNo from '../components/SwitchYesNo';
 import SliderFG from '../components/SliderFG';
+import TimeBubble from '../components/TimeBubble';
 
 const DashboardPage = () => {
   return (
@@ -23,9 +24,19 @@ const DashboardPage = () => {
 
                       <SwitchWQ/>
                       <SwitchPC/>
-                      <SwitchYesNo/>  
-                      <SliderFG/>                
-                    </div>
+                      <SwitchYesNo/> 
+
+                      <div className="mt-9">
+                        <SliderFG/>  
+                      </div> 
+                      
+                      </div>
+                      {/* Move TimeBubble to the right side */}
+                      <div className="justify-end mt-9 ml-5">
+                        <TimeBubble />
+                      </div>     
+
+                    
                     
                     
 

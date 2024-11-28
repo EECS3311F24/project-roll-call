@@ -17,11 +17,34 @@ export default function StaticTimePickerLandscape() {
         width: 500, // Adjust the width of the entire picker
         height: 300, // Adjust the height of the entire picker
         borderRadius: 5,
+
+        '& .MuiClock-root': {
+          transform: 'scale(0.8)', // Enlarge the clock         
+        },
+        //Pointer 
+        '& .MuiClock-pin': {
+          height: '10px', // Customize the size of the clock pin
+          width: '10px',
+          backgroundColor: '#32A6F9',
+        },
+        '& .MuiClockPointer-root': {
+            width: '2px', // Adjust the pointer arm thickness
+            backgroundColor: '#32A6F9', // Change the color of the pointer arm
+          },
+        '& .MuiClockPointer-thumb': {
+          borderColor: '#32A6F9',
+          backgroundColor: '#32A6F9',
+        },                
       }}
       slotProps={{
         rightArrowIcon: {
           sx: {
-            color: '#32A6F9', // Set the arrow color to red
+            color: '#32A6F9', // Set the arrow color to blue
+          },
+        },
+        leftArrowIcon: {
+          sx: {
+            color: '#32A6F9', // Set the arrow color to blue
           },
         },
         actionBar: {
@@ -32,7 +55,7 @@ export default function StaticTimePickerLandscape() {
                 fontWeight: '500',
               },
             },
-          },
+        },
       }}
 
       />
