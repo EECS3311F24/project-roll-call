@@ -6,6 +6,7 @@ import SwitchPC from '../components/SwitchCP';
 import SwitchYesNo from '../components/SwitchYesNo';
 import SliderFG from '../components/SliderFG';
 import TimeBubble from '../components/TimeBubble';
+import AutoCompleteCE from '../components/AutocompleteCE'
 
 const DashboardPage = () => {
   return (
@@ -25,6 +26,7 @@ const DashboardPage = () => {
                       <SwitchWQ/>
                       <SwitchPC/>
                       <SwitchYesNo/> 
+                      <AutoCompleteCE/>
 
                       <div className="mt-9">
                         <SliderFG/>  
