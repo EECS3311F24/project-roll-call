@@ -1,13 +1,14 @@
 import * as React from 'react';
+import dayjs from "dayjs";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticTimePicker } from '@mui/x-date-pickers/StaticTimePicker';
 
-export default function StaticTimePickerLandscape() {
+export default function TimeBubble() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <StaticTimePicker orientation="landscape" 
-      
+      <StaticTimePicker 
+      orientation="landscape"
       localeText={{
         cancelButtonLabel: 'Cancel',  // Example of another label you can customize
         okButtonLabel: 'Ok',         // Custom button text for ok
@@ -34,7 +35,9 @@ export default function StaticTimePickerLandscape() {
         '& .MuiClockPointer-thumb': {
           borderColor: '#32A6F9',
           backgroundColor: '#32A6F9',
-        },                
+        },  
+                  
+        
       }}
       slotProps={{
         rightArrowIcon: {
@@ -55,9 +58,8 @@ export default function StaticTimePickerLandscape() {
                 fontWeight: '500',
               },
             },
-        },
+        }, 
       }}
-
       />
     </LocalizationProvider>
   );
