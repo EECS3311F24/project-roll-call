@@ -20,7 +20,7 @@ def initiate_google_auth(callback_route):
     authorization_url, state = flow.authorization_url(
         # access_type="offline",  ## we only have 100 per user
         include_granted_scopes="true",
-        prompt="consent"      ## try turning this on if you have issues
+        # prompt="consent"      ## try turning this on if you have issues
     )
     session["state"] = state  # Store state for verification in the callback
     return authorization_url
