@@ -1,0 +1,14 @@
+{
+    "state": "MO856lr6WI9MJu4RbjHO5TOwqOYbhB",
+    "features": {
+        "drive": false,
+        "calendar": true,
+        "profile": true,
+        "email": true,
+        "send-email": true
+    },
+    "user": {
+        "id": "110125061098661425360",
+        "email": "saras.rollcall@gmail.com"
+    }
+}

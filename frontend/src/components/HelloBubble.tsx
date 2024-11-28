@@ -12,7 +12,7 @@ const HelloBubble = () => {
     useEffect(() => {
       const fetchWord = async () => {
         try{
-          const response = await axios.get("http://127.0.0.1:5000/generate_word");
+          const response = await axios.get("http://localhost:5000/gem/generate_word");
           setWordData(response.data);
         }catch (err){
           console.error(err);
@@ -24,7 +24,7 @@ const HelloBubble = () => {
     useEffect(() => {
       const fetchQuote = async () => {
         try{
-          const response = await axios.get("http://127.0.0.1:5000/generate_quote");
+          const response = await axios.get("http://localhost:5000/gem/generate_quote");
           setQuote(response.data);
         }catch (err){
           console.error(err);

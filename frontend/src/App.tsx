@@ -9,6 +9,9 @@ import YesterdayPage from './pages/YesterdayPage';
 import HistoryPage from './pages/HistoryPage';
 import InsightsPage from './pages/InsightsPage';
 
+import Dashboard from './pages/Dashboard';
+import TestPage from './pages/TestPage';
+
 
 import DBport from './pages/DBport';
 
@@ -23,6 +26,9 @@ function App() {
           <Route path="/yesterday" element={<YesterdayPage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/insights" element={<InsightsPage />} />
+
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/test" element={<TestPage />} />
 
           <Route path="/DBport" element={<DBport />} />
         </Routes>
