@@ -2,9 +2,7 @@ import requests
 import google_auth_oauthlib.flow
 from flask import url_for, session
 from app.config import Config
-from app.utils.common import credentials_to_dict, check_granted_scopes, save_session
-from google.auth.transport.requests import Request
-from google.oauth2.id_token import verify_oauth2_token
+from app.services.auth_service.token import credentials_to_dict, save_session, credentials_to_dict, check_granted_scopes, decode_google_id_token
 
 
 def initiate_google_auth(callback_route):
@@ -40,44 +38,17 @@ def handle_oauth_callback(authorization_response, redirect_uri):
         state=state
     )
     flow.redirect_uri = redirect_uri
-
     flow.fetch_token(authorization_response=authorization_response)
     credentials = flow.credentials
 
     credentials_dict = credentials_to_dict(credentials)  # to be used to access google calendar api
-    id_token = credentials.id_token                      # to be used to create a user account 
-
-    print(id_token)
-    # Check which scopes user granted
     features = check_granted_scopes(credentials_dict)
     session['features'] = features
 
     # Return the dictionary instead of the object
-    return credentials_dict, id_token
+    return credentials_dict
 
 
-def decode_google_id_token(id_token):
-    """
-    Decodes the Google ID token and extracts user information.
-    Returns a dictionary with email, given_name, family_name, and picture and ID
-    """
-    try:
-        # Verify the token and extract the payload
-        payload = verify_oauth2_token(id_token, Request(), clock_skew_in_seconds=5)
-
-        # Extract user information
-        user_info = {
-            "google_id" :payload.get("sub"),
-            "email": payload.get("email"),
-            "f_name": payload.get("given_name"),
-            "l_name": payload.get("family_name"),
-            "pfp": payload.get("picture"),
-        }
-
-        return user_info
-
-    except ValueError as e:
-        raise Exception(f"Invalid ID token: {str(e)}")
 
 
 
