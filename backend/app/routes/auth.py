@@ -1,13 +1,8 @@
 from flask import redirect, session, request, url_for, jsonify
-from ..services.auth_service.google_auth import initiate_google_auth, handle_oauth_callback, decode_google_id_token
-from app.utils.common import credentials_to_dict, serialize_document, save_session
+from ..services.auth_service.google_auth import initiate_google_auth, handle_oauth_callback
+from app.services.auth_service.token import save_session, decode_google_id_token
 from app.services.user_service import create_user, get_user, user_in_db, store_creds
-import json
-import google.oauth2.credentials
-import google_auth_oauthlib.flow
 from . import auth
-import requests
-from bson import ObjectId
 
 
 """
@@ -30,15 +25,14 @@ def login():
 def callback():
     try:
         redirect_uri = url_for("auth.callback", _external=True)
-        credentials_dict, id_token = handle_oauth_callback(request.url, redirect_uri)
-        user_info = decode_google_id_token(id_token)
+        credentials_dict = handle_oauth_callback(request.url, redirect_uri)
+        user_info = decode_google_id_token(credentials_dict["id_token"])
 
         # store the user in the session
         session["user"] = {
             "id": user_info["google_id"], 
             "email": user_info["email"],
         }
-
         session.permanent = True
         save_session()  # saves to json just for debugging
 
