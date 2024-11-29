@@ -23,7 +23,6 @@ def initiate_google_auth(callback_route):
         # prompt="consent"      ## try turning this on if you have issues
     )
     session["state"] = state  # Store state for verification in the callback
-    print(session)
     return authorization_url
 
 
