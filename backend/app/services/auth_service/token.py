@@ -75,23 +75,65 @@ def get_user_id(session):
         # Handle cases where session structure is not as expected
         print("Invalid session format.")
         return None
-    
-def get_creds(session):
+
+
+def get_creds(session, required_scope):
+    """
+    This function returns the required token to make Google API calls. 
+    The token is retrieved from the database using the user_id stored in the session.
+    Before returning the token, a series of checks are done to make sure it is valid:
+        - Checks if session valid
+        - Checks token against required scopes for the API call
+        - Checks if expired 
+            - Attempts to refresh if expired
+    """
     id = get_user_id(session)
+    if not id:
+        raise Exception("User is not authenticated. Missing user ID in session.")
+    
+    user_scope = get_user_scopes(id)
+    
+    # Check if all required scopes are in user_scope
+    if not set(required_scope).issubset(set(user_scope)):
+        raise Exception("User is missing required permission for API call.")
+    
+    # fetch access and refresh token -> convert it to google cred object
     token = get_access_token(id)
+    refresh_token, refresh_uri = get_refresh_token(id)
     cred = Credentials(
         token=token,
+        refresh_token=refresh_token,
+        token_uri=refresh_uri
     )
+
+    # Attempt to refresh the token 
+    if cred.expired:
+        if cred.refresh_token == "Not enabled":
+            raise Exception("Token expired and offline use not enabled. REAUTHENTICATE!")
+        else:
+            try:
+                cred.refresh(Request())
+                user = get_user(id)
+                # Update the database with the refreshed token
+                user.creds.token = cred.token
+                user.save()
+            except Exception as e:
+                raise Exception(f"Failed to refresh the access token: {e}")
+
     return cred
+
     
 def get_access_token(google_id):
     user = get_user(google_id)
     return user.creds.token
 
+def get_refresh_token(google_id):
+    user = get_user(google_id)
+    return user.creds.refresh_token, user.creds.token_uri
+
 def get_user_scopes(google_id):
     user = get_user(google_id)
     return user.creds.scopes
-
 
 
 def save_session():
