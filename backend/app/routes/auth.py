@@ -21,6 +21,10 @@ If this id is not in the db, then a new user is created using the info from thei
 """
 @auth.route("/login")
 def login():
+    # creates a new session every time a user logs i
+    # This is important because for the schedule report email we need to keep the 
+    # session alive (it expires after 31)
+    session.clear()
     return redirect(initiate_google_auth("auth.callback"))
 @auth.route("/callback")
 def callback():
@@ -34,7 +38,9 @@ def callback():
             "id": user_info["google_id"], 
             "email": user_info["email"],
         }
-        save_session()  # just for debugging
+
+        session.permanent = True
+        save_session()  # saves to json just for debugging
 
         # User already exists !
         if user_in_db(user_info["google_id"]): 
@@ -84,9 +90,9 @@ def logout():
 
 ### TESTING ROUTES ----------------------------------------------------------------
 
-@auth.route('/debug_session_cookie')
-def debug_session_cookie():
-    print(f"Session cookie: {request.cookies.get('session')}")
+@auth.route('/get_session')
+def get_session():
+    print(session)
     return "Check logs for session cookie."
 
 @auth.route("/test")

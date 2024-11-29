@@ -16,7 +16,7 @@ def create_app():
     app = Flask(__name__)
     CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://localhost:3000"}})
     app.secret_key = os.getenv("SECRET_KEY", "fallback_secret_key")
-    app.permanent_session_lifetime = timedelta(days=7)
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
 
     print(f"App initialized with secret key: {app.secret_key}") 
 

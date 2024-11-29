@@ -18,15 +18,39 @@ from googleapiclient.errors import HttpError
 from flask import session
 from app.models import User
 
+from datetime import datetime
+
+from ..routes.calendar import get_day_events
+
+
+def format_time(date_time_str):
+    """Convert ISO 8601 to a readable time format."""
+    dt = datetime.fromisoformat(date_time_str)
+    return dt.strftime("%I:%M %p").lstrip("0")  # Format as 12-hour clock, strip leading zero
+
+def get_formatted_schedule(data):
+    """Format and return the schedule as a string."""
+    schedule = "Up on the Agenda Today\n"
+    for period, events in data.items():
+        if events:
+            schedule += f"{period.capitalize()}\n"
+            for event in events:
+                time = format_time(event["start"]["dateTime"])
+                schedule += f"‣  {time}:\n{event['summary']}\n"
+    return schedule
+
+
+
+def create_report():
+    data = get_day_events()
+    result = get_formatted_schedule(data)
+    return result
+
 
 def gmail_send_message(recipient):
   """Create and send an email message
   Print the returned  message id
   Returns: Message object, including message id
-
-  Load pre-authorized user credentials from the environment.
-  TODO(developer) - See https://developers.google.com/identity
-  for guides on implementing OAuth2 for the application.
   """
 
   try:

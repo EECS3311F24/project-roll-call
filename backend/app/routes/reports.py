@@ -1,4 +1,4 @@
-from ..services.report_service import gmail_send_message
+from ..services.report_service import gmail_send_message, create_report
 from . import report
 from flask import session
 
@@ -13,6 +13,12 @@ def send_self():
 def send_other(other_email):
     gmail_send_message(other_email)
     return f"Check {other_email}'s inbox and logs"
+
+@report.route("/test", methods=['GET'])
+def test():
+    return create_report()
+
+
 
 
 
