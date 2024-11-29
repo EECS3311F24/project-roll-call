@@ -1,10 +1,7 @@
 import datetime as dt
 import pytz
 from flask import session
-from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
-from google.auth.transport.requests import Request
-from googleapiclient.errors import HttpError
 from ...models import User
 
 
@@ -17,26 +14,11 @@ class Event:
         self.time_max = None
         self.time_period = None
     
-    def get_google_service(self):
-        """
-        Retrieves the Google Calendar API service using the provided credentials.
-        """
-        # Check if the token is expired and refresh it if needed
-        if self.creds.expired and self.creds.refresh_token:
-            try:
-                self.creds.refresh(Request())
-            except Exception as e:
-                raise Exception(f"Failed to refresh the access token: {e}")
-
-        # Return the Google Calendar API service
-        return build("calendar", "v3", credentials=self.creds)
-
-
     # this function gets the events from Google Calendar
     def get_events(self):
         try:
             # builds service for Google Calendar API
-            service = self.get_google_service()
+            service = build("calendar", "v3", credentials=self.creds)
             events_result = service.events().list(
                 calendarId="primary",
                 timeMin=self.time_min,
