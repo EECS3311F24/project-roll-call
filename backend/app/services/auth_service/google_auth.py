@@ -2,7 +2,7 @@ import requests
 import google_auth_oauthlib.flow
 from flask import url_for, session
 from app.config import Config
-from app.services.auth_service.token import credentials_to_dict, save_session, credentials_to_dict, check_granted_scopes, decode_google_id_token
+from app.services.auth_service.token import credentials_to_dict, credentials_to_dict, check_granted_scopes
 
 
 def initiate_google_auth(callback_route):
