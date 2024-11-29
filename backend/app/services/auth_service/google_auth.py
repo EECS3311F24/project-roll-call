@@ -47,6 +47,7 @@ def handle_oauth_callback(authorization_response, redirect_uri):
     credentials_dict = credentials_to_dict(credentials)  # to be used to access google calendar api
     id_token = credentials.id_token                      # to be used to create a user account 
 
+    print(id_token)
     # Check which scopes user granted
     features = check_granted_scopes(credentials_dict)
     session['features'] = features

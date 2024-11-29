@@ -1,12 +1,12 @@
 import base64
 from email.message import EmailMessage
-
+from flask import request, jsonify
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
-
+import requests
 
 import base64
 from email.message import EmailMessage
@@ -30,21 +30,32 @@ def format_time(date_time_str):
 
 def get_formatted_schedule(data):
     """Format and return the schedule as a string."""
-    schedule = "Up on the Agenda Today\n"
+    schedule = "Up on the Agenda Today\n\n"
     for period, events in data.items():
         if events:
-            schedule += f"{period.capitalize()}\n"
+            schedule += f"{period.capitalize()}:\n"
             for event in events:
                 time = format_time(event["start"]["dateTime"])
-                schedule += f"‣  {time}:\n{event['summary']}\n"
-    return schedule
+                schedule += f"‣  {time} - {event['summary']}\n"
+            schedule += "\n"  # Add a blank line after each period
+    return schedule.strip()  # Remove any trailing newline
 
+def create_report(token):
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+    }
 
+    # Make the request to /cal/day_events
+    response = requests.post('http://localhost:5000/cal/day_events', headers=headers)
 
-def create_report():
-    data = get_day_events()
-    result = get_formatted_schedule(data)
-    return result
+    # Handle response and format the schedule
+    if response.status_code == 200:
+        data = response.json()  # Get the categorized events
+        formatted_schedule = get_formatted_schedule(data)
+        return formatted_schedule  # Return as a plain string
+    else:
+        return f"Failed to retrieve day events: {response.text}"  # Return error as string
 
 
 def gmail_send_message(recipient):

@@ -4,7 +4,7 @@ from ..services.calendar_service.future_event import FutureEvent
 from ..services.calendar_service.todo_event import SuggestedToDo
 from flask import jsonify, redirect, session, request
 from . import cal
-
+from ..services.auth_service.session import user_required
 
 @cal.route('/test_permission')
 def calendar_api_request():
@@ -22,13 +22,31 @@ def calendar_api_request():
     # Update UX and application accordingly
         return '<p>Calendar feature is not enabled.</p>'
 
+
 # route for getting the events for today from Google Calendar API
-@cal.route("/day_events", methods=['GET'])
-def get_day_events():
-    day_event = DayEvent()
-    events = day_event.get_events()
-    events = day_event.categorize_events(events)
-    return jsonify(events)
+@cal.route("/day_events", methods=["POST"])
+@user_required
+def get_day_events(creds=None):
+    if not creds:
+        return jsonify({"message": "Authentication failed!"}), 403
+
+    try:
+        # Use the user's credentials to fetch their day events
+        day_event = DayEvent(creds)  # Pass credentials to your logic
+        events = day_event.get_events()
+        categorized_events = day_event.categorize_events(events)
+        return jsonify(categorized_events)
+
+    except Exception as e:
+        return jsonify({"message": f"Failed to retrieve day events: {e}"}), 500
+
+# # route for getting the events for today from Google Calendar API
+# @cal.route("/day_events", methods=['GET'])
+# def get_day_events():
+#     day_event = DayEvent()
+#     events = day_event.get_events()
+#     events = day_event.categorize_events(events)
+#     return jsonify(events)
 
 # route for getting the events for the next week from Google Calendar API
 @cal.route("/week_events", methods=['GET'])
