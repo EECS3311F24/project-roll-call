@@ -2,7 +2,7 @@ from datetime import datetime
 from app.routes.calendar import get_day_events, get_week_events, get_future_events, get_to_do
 from app.services.user_service import get_name
 
-def get_report_html(google_id):
+def get_report_html(google_id, shared=False):
     """Generate the HTML report."""
     today = get_today_html(google_id)
     week = get_week_html(google_id)
@@ -10,10 +10,18 @@ def get_report_html(google_id):
     todo = get_todo_html(google_id)
     name = get_name(google_id)
 
+    if shared:
+        greeting = f"Hello, {name} shared their Roll Call with you!"
+        footer = f"Get your own! http://localhost:3000/"
+    else:
+        greeting = f"Hello {name}, here is your Roll Call!"
+        footer = f"Good luck, see you tomorrow!"
+
+
     s = f"""
     <html>
         <body style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
-            <h1 style="text-align: center;">Hello {name}, here is your Roll Call!</h1>
+            <h1 style="text-align: center;">{greeting}</h1>
             <table style="width: 100%; max-width: 1200px; margin: 0 auto; border-collapse: collapse;">
                 <tr>
                     <td style="border: 1px solid #ccc; padding: 15px; vertical-align: top; width: 25%;">
@@ -30,7 +38,7 @@ def get_report_html(google_id):
                     </td>
                 </tr>
             </table>
-            <h2 style="text-align: center;">Good luck, see you tomorrow!</h2>
+            <h2 style="text-align: center;">{footer}</h2>
         </body>
     </html>
     """
