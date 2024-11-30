@@ -67,6 +67,8 @@ def store_creds(user, creds_dict):
             refresh_token=creds_dict["refresh_token"],
             id_token=creds_dict["id_token"],
             token_uri=creds_dict["token_uri"],
+            client_id=creds_dict["client_id"],
+            client_secret=creds_dict["client_secret"],
             scopes=creds_dict["scopes"],
         )
         

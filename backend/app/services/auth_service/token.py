@@ -94,11 +94,13 @@ def get_creds_by_id(google_id, required_scope):
     
     # fetch access and refresh token -> convert it to google cred object
     token = get_access_token(google_id)
-    refresh_token, refresh_uri = get_refresh_token(google_id)
+    refresh_token, refresh_uri, client_id, client_secret = get_refresh_token(google_id)
     cred = Credentials(
         token=token,
         refresh_token=refresh_token,
-        token_uri=refresh_uri
+        token_uri=refresh_uri,
+        client_id=client_id,
+        client_secret=client_secret
     )
     # Attempt to refresh the token 
     if cred.expired:
@@ -138,11 +140,13 @@ def get_creds(session, required_scope):
     
     # fetch access and refresh token -> convert it to google cred object
     token = get_access_token(id)
-    refresh_token, refresh_uri = get_refresh_token(id)
+    refresh_token, refresh_uri, client_id, client_secret = get_refresh_token(id)
     cred = Credentials(
         token=token,
         refresh_token=refresh_token,
-        token_uri=refresh_uri
+        token_uri=refresh_uri,
+        client_id=client_id,
+        client_secret=client_secret
     )
 
     # Attempt to refresh the token 
@@ -168,7 +172,7 @@ def get_access_token(google_id):
 
 def get_refresh_token(google_id):
     user = get_user(google_id)
-    return user.creds.refresh_token, user.creds.token_uri
+    return user.creds.refresh_token, user.creds.token_uri, user.creds.client_id, user.creds.client_secret
 
 def get_user_scopes(google_id):
     user = get_user(google_id)
