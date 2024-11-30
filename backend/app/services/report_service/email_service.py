@@ -18,15 +18,20 @@ def gmail_send_message(recipient, google_id):
 
         # Create the email message
         message = EmailMessage()
+        users_email = get_email(google_id)
 
         # Generate the HTML report
-        report_html = get_report_html(google_id)  # Use the HTML report generation function
+        if recipient == users_email:
+            report_html = get_report_html(google_id)  
+        else:
+            report_html = get_report_html(google_id, shared=True)  
+
         message.set_content("Your email client does not support HTML.")  # Add plain text fallback
         message.add_alternative(report_html, subtype="html")  # Add HTML content
 
         # Set email metadata
         message["To"] = recipient
-        message["From"] = get_email(google_id)
+        message["From"] = users_email
         message["Subject"] = "Roll Call Report"
 
         # Encode the email message for the Gmail API
