@@ -29,6 +29,15 @@ def create_user(profile):
 
     return user
 
+def get_name(google_id):
+    user = User.objects.get(google_id=google_id)
+    return user.f_name
+
+def get_email(google_id):
+    user = User.objects.get(google_id=google_id)
+    return user.email
+
+
 def get_user(google_id):
     """
     Fetches a user in the database based on their Google ID.
