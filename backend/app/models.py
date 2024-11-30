@@ -3,10 +3,9 @@ from mongoengine import Document, EmbeddedDocument, EmbeddedDocumentField, Strin
 
 class Creds(EmbeddedDocument):
     token = StringField(required=True) 
-    refresh_token = StringField() 
+    refresh_token = StringField(required=True) 
     token_uri = URLField(required=True) 
-    client_id = StringField(required=True) 
-    client_secret = StringField(required=True) 
+    id_token = StringField(required=True) 
     scopes = ListField(URLField(), required=True)        
 
 

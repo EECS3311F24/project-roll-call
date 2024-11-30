@@ -1,5 +1,5 @@
 {
-    "state": "MO856lr6WI9MJu4RbjHO5TOwqOYbhB",
+    "state": "lao36ZCePpEWzRI7VDLLTIOn1c9Ofg",
     "features": {
         "drive": false,
         "calendar": true,
@@ -10,5 +10,6 @@
     "user": {
         "id": "110125061098661425360",
         "email": "saras.rollcall@gmail.com"
-    }
+    },
+    "_permanent": true
 }

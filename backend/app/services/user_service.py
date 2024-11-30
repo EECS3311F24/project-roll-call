@@ -29,6 +29,15 @@ def create_user(profile):
 
     return user
 
+def get_name(google_id):
+    user = User.objects.get(google_id=google_id)
+    return user.f_name
+
+def get_email(google_id):
+    user = User.objects.get(google_id=google_id)
+    return user.email
+
+
 def get_user(google_id):
     """
     Fetches a user in the database based on their Google ID.
@@ -55,10 +64,9 @@ def store_creds(user, creds_dict):
         # Create or update the Creds object
         user.creds = Creds(
             token=creds_dict["token"],
-            refresh_token=creds_dict.get("refresh_token"),
+            refresh_token=creds_dict["refresh_token"],
+            id_token=creds_dict["id_token"],
             token_uri=creds_dict["token_uri"],
-            client_id=creds_dict["client_id"],
-            client_secret=creds_dict["client_secret"],
             scopes=creds_dict["scopes"],
         )
         

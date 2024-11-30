@@ -7,9 +7,9 @@ from datetime import datetime, timedelta
 class WeekEvent(Event):
     
     # constructor
-    def __init__(self):
+    def __init__(self, creds):
         # calls superclass constructor
-        super().__init__()
+        super().__init__(creds)
         # get the time at start of tomorrow
         start_of_tomorrow = (self.now + dt.timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
         # get the time at the end of 6 days from now

@@ -33,3 +33,4 @@ __pycache__
 token.json
 
 *.credentials.json
+session_data.json

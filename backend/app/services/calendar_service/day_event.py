@@ -6,9 +6,9 @@ from datetime import datetime
 class DayEvent(Event):
 
     # constructor
-    def __init__(self):
+    def __init__(self, creds):
         # calls superclass constructor
-        super().__init__()
+        super().__init__(creds)
         # get the time at the start of the day
         start_of_day = self.now.replace(hour=0, minute=0, second=0, microsecond=0)
         # get the time at the end of the day

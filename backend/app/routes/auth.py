@@ -1,13 +1,8 @@
 from flask import redirect, session, request, url_for, jsonify
-from app.services.auth_service import initiate_google_auth, handle_oauth_callback, decode_google_id_token
-from app.utils.common import credentials_to_dict, serialize_document, save_session
+from ..services.auth_service.google_auth import initiate_google_auth, handle_oauth_callback
+from app.services.auth_service.token import save_session, decode_google_id_token
 from app.services.user_service import create_user, get_user, user_in_db, store_creds
-import json
-import google.oauth2.credentials
-import google_auth_oauthlib.flow
 from . import auth
-import requests
-from bson import ObjectId
 
 
 """
@@ -21,20 +16,25 @@ If this id is not in the db, then a new user is created using the info from thei
 """
 @auth.route("/login")
 def login():
+    # creates a new session every time a user logs i
+    # This is important because for the schedule report email we need to keep the 
+    # session alive (it expires after 31)
+    session.clear()
     return redirect(initiate_google_auth("auth.callback"))
 @auth.route("/callback")
 def callback():
     try:
         redirect_uri = url_for("auth.callback", _external=True)
-        credentials_dict, id_token = handle_oauth_callback(request.url, redirect_uri)
-        user_info = decode_google_id_token(id_token)
+        credentials_dict = handle_oauth_callback(request.url, redirect_uri)
+        user_info = decode_google_id_token(credentials_dict["id_token"])
 
         # store the user in the session
         session["user"] = {
             "id": user_info["google_id"], 
             "email": user_info["email"],
         }
-        save_session()  # just for debugging
+        session.permanent = True
+        save_session()  # saves to json just for debugging
 
         # User already exists !
         if user_in_db(user_info["google_id"]): 
@@ -84,9 +84,9 @@ def logout():
 
 ### TESTING ROUTES ----------------------------------------------------------------
 
-@auth.route('/debug_session_cookie')
-def debug_session_cookie():
-    print(f"Session cookie: {request.cookies.get('session')}")
+@auth.route('/get_session')
+def get_session():
+    print(session)
     return "Check logs for session cookie."
 
 @auth.route("/test")

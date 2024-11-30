@@ -8,9 +8,9 @@ from datetime import datetime
 class FutureEvent(Event):
     
     # constructor
-    def __init__(self):
+    def __init__(self, creds):
         # calls superclass constructor
-        super().__init__()
+        super().__init__(creds)
         # set the end of the time range as today + 30 days
         end_of_month = self.now + dt.timedelta(days=30)
         self.time_min = self.now.isoformat()
