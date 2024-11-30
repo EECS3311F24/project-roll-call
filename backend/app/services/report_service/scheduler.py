@@ -43,8 +43,8 @@ def schedule_jobs(app):
     scheduler.add_job(
         send_daily_email,  # Pass the function
         args=[app],        # Pass the app as an argument
-        # trigger=IntervalTrigger(seconds=5),  # For testing
-        trigger=CronTrigger(hour=9, minute=0),
+        trigger=IntervalTrigger(hours=2),  # For testing
+        # trigger=CronTrigger(hour=10, minute=30),
         id="daily_email_job",
         replace_existing=True
     )

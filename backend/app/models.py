@@ -6,6 +6,8 @@ class Creds(EmbeddedDocument):
     refresh_token = StringField(required=True) 
     token_uri = URLField(required=True) 
     id_token = StringField(required=True) 
+    client_id=StringField(required=True) 
+    client_secret=StringField(required=True) 
     scopes = ListField(URLField(), required=True)        
 
 
