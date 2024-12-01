@@ -27,8 +27,31 @@ const settings = ['Dashboard', 'Logout'];
 function ResponsiveAppBar() {
   const location = useLocation()
   const navigate = useNavigate();
-
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [profilePic, setProfilePic] = React.useState<string>('/static/images/avatar/2.jpg'); // Default avatar
+
+  React.useEffect(() => {
+    // Fetch profile picture
+    const fetchProfilePic = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/user/pfp', {
+          method: 'GET',
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setProfilePic(data);
+        } else {
+          console.error('Failed to fetch profile picture');
+        }
+      } catch (error) {
+        console.error('Error fetching profile picture:', error);
+      }
+    };
+
+    fetchProfilePic();
+  }, []); // Run only once on component mount
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -57,7 +80,6 @@ function ResponsiveAppBar() {
   };
 
 
-  
   return (
     <AppBar position="static" sx={{ backgroundColor: '#D9E5D6' }}>
       <Container maxWidth="xl">
@@ -111,7 +133,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, }}>
-                <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="User Avatar" src={profilePic} />
               </IconButton>
             </Tooltip>
             <Menu
