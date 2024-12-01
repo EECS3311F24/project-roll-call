@@ -95,7 +95,7 @@ const HelloBubble = () => {
 
     return (
 
-      <div className="bg-orange border rounded-[30px] mx-[200px] my-10 flex items-center justify-center transition-transform duration-300 transform hover:scale-105">
+      <div className="bg-orange border rounded-[30px] mx-[300px] my-10 flex items-center justify-center transition-transform duration-300 transform hover:scale-105">
   
           <div className="flex-[40%] pl-7 px-4 py-6">
               <div className="text-2xl font-bold pb-1">{greeting()}</div>
