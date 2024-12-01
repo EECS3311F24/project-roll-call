@@ -5,7 +5,7 @@ const TestPage = () => {
   return (
     <div>
       <Navbar /> 
-      Welcome back! here is your summary !
+      test page
     </div>
   )
 }
