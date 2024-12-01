@@ -28,6 +28,38 @@ def create_user(profile):
 
     return user
 
+def update_user(profile):
+    """
+    Updates an existing user's profile in the database if any fields have changed.
+    
+    :param profile: A dictionary containing the user's Google profile information.
+    :return: The updated User object, or None if the user does not exist.
+    """
+    try:
+        # Check if the user exists
+        user = User.objects.get(google_id=profile["google_id"])
+        print("User found. Checking for updates...")
+        
+        # Update user fields if there are changes
+        updated = False
+        fields_to_update = ["email", "f_name", "l_name", "pfp"]
+        for field in fields_to_update:
+            if getattr(user, field) != profile[field]:
+                setattr(user, field, profile[field])
+                updated = True
+        
+        if updated:
+            user.save()
+            print(f"User profile updated for google_id: {profile['google_id']}")
+        else:
+            print("No changes detected in user profile.")
+        
+        return user
+
+    except DoesNotExist:
+        print(f"No user found with google_id: {profile['google_id']}")
+        return None
+
 def get_name(google_id):
     user = User.objects.get(google_id=google_id)
     return user.f_name
