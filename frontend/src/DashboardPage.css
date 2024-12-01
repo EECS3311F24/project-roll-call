@@ -54,3 +54,10 @@
     padding-top: 20px;
     padding-right: 35px;    
 }
+.circle{
+    width: 21px;
+    height: 21px;
+    flex-shrink: 0;
+    box-shadow: 1.5px 1.5px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 9999px
+}
