@@ -55,9 +55,20 @@
     padding-right: 35px;    
 }
 .circle{
-    width: 21px;
-    height: 21px;
+    width: 25px;
+    height: 25px;
     flex-shrink: 0;
     box-shadow: 1.5px 1.5px 10px rgba(0, 0, 0, 0.25);
     border-radius: 9999px
+}
+.color-stack{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.color-stack .circle{
+    margin: 11.3px 5px;
+}
+.color-category{
+    display: flex;
 }
