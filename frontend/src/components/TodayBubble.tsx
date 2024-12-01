@@ -3,8 +3,7 @@ import axios from 'axios';
 import { CalendarEvent } from '../types';
 import { formatTime } from '../utility/dateUtils';
 
-// Component which displays the google events for the day on today page. It organizes the events based on Morning, Afternoon and evening.
-// events which have passed will be faded and events which are happening now will be highlighted in blue
+// Component which displays the Google events for the day on the "Today" page.
 function TodayBubble() {
   const [dayEvents, setDayEvents] = useState<{
     allDay: CalendarEvent[];
@@ -15,35 +14,57 @@ function TodayBubble() {
     allDay: [],
     morning: [],
     afternoon: [],
-    evening: []
+    evening: [],
   });
 
+  const [error, setError] = useState<string | null>(null); // Add error state for debugging
+
+  const fetchDayEvents = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/cal/day_events', {
+        withCredentials: true, // Ensure credentials like cookies are sent
+      });
+      setDayEvents(response.data); // Update state with fetched events
+      setError(null); // Clear error if successful
+    } catch (error: any) {
+      console.error('Error fetching day events:', error.response?.data || error.message);
+      setError(error.response?.data || error.message); // Store error for display
+    }
+  };
+
   useEffect(() => {
-    const fetchDayEvents = async () => {
-      const response = await axios.get('http://127.0.0.1:5000/day_events');
-      setDayEvents(response.data);
-    };
     fetchDayEvents();
-    console.log(dayEvents);
-  }, []);
+  }, []); // Fetch data when component mounts
 
   const areAllEventsPast = (events: CalendarEvent[]) => {
-    return events.every((event) => event.status === "past");
+    return events.every((event) => event.status === 'past');
   };
 
   const renderEvents = (title: string, events: CalendarEvent[]) => (
     <div className={`mb-4`}>
-      <h2 className={`mx-2 font-bold ${areAllEventsPast(events) ? 'opacity-40' : 'text-black'}`}>{title}</h2>  
+      <h2 className={`mx-2 font-bold ${areAllEventsPast(events) ? 'opacity-40' : 'text-black'}`}>{title}</h2>
       {events.map((event) => {
         const isAllDay = event.start.date && !event.start.dateTime;
 
-        return(
-          <div key={event.id} className={`ml-4 flex items-start ${event.status === "past" ? 'opacity-40' : ''}`}>
-            <span className={`font-semibold whitespace-nowrap ${event.status === "ongoing" ? 'text-blue-600' : 'text-gray-700'}`}>
-              ‣ &nbsp;{isAllDay ? '' : formatTime(event.start.dateTime || '') + ':'}
+        return (
+          <div
+            key={event.id}
+            className={`ml-4 flex items-start ${event.status === 'past' ? 'opacity-40' : ''}`}
+          >
+            <span
+              className={`font-semibold whitespace-nowrap ${
+                event.status === 'ongoing' ? 'text-blue-600' : 'text-gray-700'
+              }`}
+            >
+              ‣ &nbsp;
+              {isAllDay ? '' : formatTime(event.start.dateTime || '') + ':'}
             </span>
-            <span className={`ml-2 flex-1 font-normal whitespace-normal ${event.status === "ongoing" ? 'text-blue-600' :  'text-black-700'}`}
-            style={isAllDay ? { marginLeft: '0px' } : {}}>
+            <span
+              className={`ml-2 flex-1 font-normal whitespace-normal ${
+                event.status === 'ongoing' ? 'text-blue-600' : 'text-black-700'
+              }`}
+              style={isAllDay ? { marginLeft: '0px' } : {}}
+            >
               {event.summary}
             </span>
           </div>
@@ -56,7 +77,7 @@ function TodayBubble() {
     <div
       className="mb-3 mx-2 border rounded-[30px] bg-[#F2B391] transition-transform duration-300 transform hover:scale-105 flex flex-col overflow-hidden"
       style={{
-          height: 'calc(100vh - 350px)', // Subtract space for navbar and margins
+        height: 'calc(100vh - 350px)', // Subtract space for navbar and margins
       }}
     >
       <div className="mt-5 text-lg text-center font-bold">Up on the Agenda Today</div>

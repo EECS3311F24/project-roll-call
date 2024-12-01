@@ -2,13 +2,13 @@ from .event import Event
 from datetime import datetime
 
 # this class is a subclass of the Event class
-# it initializes the time range for events from the start of today to the end of today
+# it initializes the time range for events from the start of today to the end of today!
 class DayEvent(Event):
 
     # constructor
-    def __init__(self):
+    def __init__(self, creds):
         # calls superclass constructor
-        super().__init__()
+        super().__init__(creds)
         # get the time at the start of the day
         start_of_day = self.now.replace(hour=0, minute=0, second=0, microsecond=0)
         # get the time at the end of the day
