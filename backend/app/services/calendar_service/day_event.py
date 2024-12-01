@@ -2,7 +2,7 @@ from .event import Event
 from datetime import datetime
 
 # this class is a subclass of the Event class
-# it initializes the time range for events from the start of today to the end of today
+# it initializes the time range for events from the start of today to the end of today!
 class DayEvent(Event):
 
     # constructor
