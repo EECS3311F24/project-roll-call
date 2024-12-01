@@ -23,7 +23,6 @@ function App() {
     <div className="h-screen bg-custombg">
     <ThemeProvider theme={theme}>
         <Routes>
-          {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
 
           {/* Protected Routes */}
