@@ -1,4 +1,18 @@
 import React from 'react'
+
+import Navbar from '../components/Navbar';
+
+const Dashboard = () => {
+  return (
+    <div>
+      <Navbar /> 
+      New user, welcome, setup your dashboard
+    </div>
+  )
+}
+
+export default Dashboard;
+=======
 import '../DashboardPage.css';
 import Navbar from '../components/Navbar';
 import SwitchWQ from '../components/SwitchWQ';
@@ -132,3 +146,4 @@ const DashboardPage = () => {
 }
 
 export default DashboardPage
+
