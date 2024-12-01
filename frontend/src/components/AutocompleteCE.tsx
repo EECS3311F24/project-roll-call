@@ -8,8 +8,19 @@ export default function ComboBox() {
     <Autocomplete
       disablePortal
       options={List}
-      sx={{ width: 300, backgroundColor: 'white', borderRadius: 1 , }} // Set white background
-      renderInput={(params) => <TextField {...params} label="Category Type" />}
+      sx={{ width: 300, backgroundColor: 'white', borderRadius: 1 }} // Set white background
+      renderInput={(params) => (
+        
+        <TextField 
+          {...params} 
+          label="Category Type"
+          sx={{
+            '& .MuiInputLabel-root': { color: 'black', fontFamily: 'Inter' }, // Set label color to black and font family to Inter
+            '& .MuiInputBase-input': { fontFamily: 'Inter' } // Set input text font family to Inter
+          }}
+        />
+
+      )}
     />
   );
 }
