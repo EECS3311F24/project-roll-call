@@ -7,6 +7,7 @@ import './index.css';
 
 import LandingPage from './pages/LandingPage';
 import TodayPage from './pages/TodayPage';
+import NotFoundPage from './pages/NotFoundPage'; 
 import YesterdayPage from './pages/YesterdayPage';
 import HistoryPage from './pages/HistoryPage';
 import InsightsPage from './pages/InsightsPage';
@@ -43,6 +44,9 @@ function App() {
               </ProtectedRoute>
             }
           />  
+
+          {/* 404 Page */}
+         <Route path="*" element={<NotFoundPage />} />
 
 
           {/* <Route path="/today" element={<TodayPage />} />
