@@ -11,7 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import CalendarIcon from '@mui/icons-material/CalendarMonth';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, Navigate } from 'react-router-dom';
 
 // This is a navigation bar component which routes to different pages
 const pages = [
@@ -35,6 +35,11 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  if (location.pathname !== '/today') {
+    return <Navigate to="/today" />;
+  }
+  
 
   return (
     <AppBar position="static" sx={{ backgroundColor: '#D9E5D6' }}>
@@ -78,6 +83,7 @@ function ResponsiveAppBar() {
                     top: '4px',
                     fontWeight: location.pathname === page.path ? 'bold' : 'normal',
                 }}
+                disabled={page.path !== '/today'} // Disable all buttons except "Today"
               >
                 {page.label}
               </Button>
