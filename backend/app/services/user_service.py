@@ -19,8 +19,7 @@ def create_user(profile):
             email=profile["email"],
             f_name=profile["f_name"],
             l_name=profile["l_name"],
-            pfp=profile["pfp"],
-            settings={},  # Initialize with default settings
+            pfp=profile["pfp"]
         )
 
         # Save the new user to the database
@@ -36,7 +35,6 @@ def get_name(google_id):
 def get_email(google_id):
     user = User.objects.get(google_id=google_id)
     return user.email
-
 
 def get_user(google_id):
     """
