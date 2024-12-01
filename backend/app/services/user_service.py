@@ -19,8 +19,7 @@ def create_user(profile):
             email=profile["email"],
             f_name=profile["f_name"],
             l_name=profile["l_name"],
-            pfp=profile["pfp"],
-            settings={},  # Initialize with default settings
+            pfp=profile["pfp"]
         )
 
         # Save the new user to the database
