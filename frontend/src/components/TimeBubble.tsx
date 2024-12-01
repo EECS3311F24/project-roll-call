@@ -14,9 +14,7 @@ export default function TimeBubble() {
         okButtonLabel: 'Ok',         // Custom button text for ok
       }}
       //size of white background
-      sx={{
-        width: 500, // Adjust the width of the entire picker
-        height: 300, // Adjust the height of the entire picker
+      sx={{ // Adjust the height of the entire picker
         borderRadius: 5,
 
         '& .MuiClock-root': {

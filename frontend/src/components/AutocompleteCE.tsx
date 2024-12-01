@@ -27,6 +27,11 @@ export default function AutoCompleteCE({label = "Category Type"}) {
           '&.Mui-focused fieldset': {
             borderColor: '#32A6F9', // Remove the outline when focused
           },
+           // Adjusting the position of the dropdown arrow
+          '& .MuiAutocomplete-popupIndicator': {
+            top: '50%', // Align the arrow vertically at the center
+            transform: 'translateY(-30%)', // Adjust vertical centering
+          },
         },
       }}
       renderInput={(params) => (

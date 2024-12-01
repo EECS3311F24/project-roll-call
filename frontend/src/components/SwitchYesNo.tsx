@@ -104,9 +104,6 @@ const SwitchYesNo = styled(Switch)(({ theme }) => ({
 export default function CustomizedSwitches() {
   return (
     <>
-            <div className="sub-heading-text ">
-                Notification
-            </div >
             <FormGroup>
                <FormControlLabel
                  control={<SwitchYesNo sx={{ m: 1 }} defaultChecked />}
