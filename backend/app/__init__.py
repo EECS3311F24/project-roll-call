@@ -39,6 +39,9 @@ def create_app():
     from app.routes.settings import setting
     app.register_blueprint(setting, url_prefix="/setting")
 
+    from app.routes.user import user
+    app.register_blueprint(user, url_prefix="/user")
+
     return app
 
 
