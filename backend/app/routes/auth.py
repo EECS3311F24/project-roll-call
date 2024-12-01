@@ -54,15 +54,37 @@ def callback():
         return f"An error occurred during the OAuth process: {str(e)}", 400
 
 
+@auth.route('/status', methods=['GET'])
+def auth_status():
+    # Check if the "user" key exists in the session
+    if 'user' in session:
+        return jsonify({
+            'authenticated': True,
+            'user': session['user'],  # Optionally return user info
+        })
+    return jsonify({'authenticated': False})
+
+
 @auth.route("/logout")
 def logout():
     """
-    Clears the session to log out the user.
+    Clears the session to log out the user and returns the session data before clearing it.
     """
-    session.clear()
-    print(session)
-    return "You have been logged out, check logs!"
+    # Capture the current session data before clearing
+    session_before = {key: session[key] for key in session.keys()}
 
+    # Clear the session
+    session.clear()
+
+    # Capture the session data after clearing (it will be empty)
+    session_now = {key: session[key] for key in session.keys()}
+
+    # Return the session data as JSON
+    return jsonify({
+        "session_before": session_before,
+        "message": "You have been logged out.",
+        "session_now": session_now
+    })
 
 
 # @auth.route('/revoke')
@@ -86,8 +108,10 @@ def logout():
 
 @auth.route('/get_session')
 def get_session():
-    print(session)
-    return "Check logs for session cookie."
+    session_data = {key: session[key] for key in session.keys()}
+    return jsonify({
+        "session": session_data
+    })
 
 @auth.route("/test")
 def test():
