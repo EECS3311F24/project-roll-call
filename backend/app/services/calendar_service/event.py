@@ -33,7 +33,7 @@ class Event:
                 print(f"No events found for the {self.time_period}.")
             return events
         # handles exception
-        except HttpError as error:
+        except Exception as error:
             print(f"An error occurred: {error}")
             return None
     
@@ -58,17 +58,17 @@ class Event:
     # this function gets the events of a certain color
     def filter_events_by_color(self, events, colorId):
         """Filters events by the given color.
-        11 = Tomato (Red)               Deadlines/tests     High
+        11 = Tomato (Red)
         4  = Flamingo (Pink)            
-        6  = Tangerine (Orange)         Appointments        High
+        6  = Tangerine (Orange)
         5  = Banana (Yellow)
         2  = Sage (Light Green)
-        10 = Basil (Dark Green)         Work                Low
-        9  = Blueberry (Dark blue)      Workouts            Low
-        1  = Lavender (Light purple)    Social Events       Medium
-        3  = Grape (Dark purple)        Unique Events       Medium
+        10 = Basil (Dark Green)         
+        9  = Blueberry (Dark blue)      
+        1  = Lavender (Light purple)    
+        3  = Grape (Dark purple)        
         8  = Graphite (Grey)
-        -  = Peacock (Blue)             Classes/Meetings    Low
+        -  = Peacock (Blue)             
         """
         #  peacock is Google's default color therefore there is no colorId field
         if colorId == "-":  

@@ -36,6 +36,9 @@ def create_app():
     from app.routes.reports import report
     app.register_blueprint(report, url_prefix="/report")
 
+    from app.routes.settings import setting
+    app.register_blueprint(setting, url_prefix="/setting")
+
     return app
 
 
