@@ -32,6 +32,10 @@ def get_name(google_id):
     user = User.objects.get(google_id=google_id)
     return user.f_name
 
+def get_pfp(google_id):
+    user = User.objects.get(google_id=google_id)
+    return user.pfp
+
 def get_email(google_id):
     user = User.objects.get(google_id=google_id)
     return user.email

@@ -46,15 +46,21 @@ python run.py
 
 ### 5. Sign in with Sara Smith
 When entering the website through the google authentication
-  - saras.rollcall@gmail.com
-  - pass: eecs3311
+  - Sara Smith
+    - saras.rollcall@gmail.com
+    - pass: eecs3311
+
+  - Rachel Doe
+    - rachels.rollcall@gmail.com
+    - pass: eecs3311
 
 
 #  **To access the Google Project Dashboard:**
 - Go to: https://console.cloud.google.com/
 - Sign in as: 
-  - saras.rollcall@gmail.com
-  - pass: eecs3311
+    - saras.rollcall@gmail.com
+    - pass: eecs3311
+
 
 To retrieve info from your own personal account you need to add your account as a test user:  (NOT TESTED YET)
 https://console.cloud.google.com/apis/credentials/consent?project=rollcall-440018
