@@ -18,5 +18,22 @@ class User(Document):
     l_name = StringField(required=True)                  
     pfp = URLField() 
     settings = DictField(default={})  
+    settings = DictField(default={
+        "greeting": "word", 
+        "future_weeks": 4, 
+        "organize_by": "category",
+        "e1": {"color": 11, "category": "Deadlines/Tests", "priority": "High Priority"},
+        "e2": {"color": 4, "category": "", "priority": ""},
+        "e3": {"color": 6, "category": "Appointments", "priority": "High Priority"},
+        "e4": {"color": 5, "category": "", "priority": ""},
+        "e5": {"color": 2, "category": "", "priority": ""},
+        "e6": {"color": 10, "category": "Work", "priority": "Low Priority"},
+        "e7": {"color": 9, "category": "Workouts", "priority": "Low Priority"},
+        "e8": {"color": 1, "category": "Social Events", "priority": "Medium Priority"},
+        "e9": {"color": 3, "category": "Unique Events", "priority": "Medium Priority"},
+        "e10": {"color": 8, "category": "", "priority": ""},
+        "e11": {"color": "-", "category": "Classes/Meetings", "priority": "Low Priority"},
+        "notification": True,
+        "notification_time": "08:00"
+        })  
     creds = EmbeddedDocumentField(Creds)          
-
