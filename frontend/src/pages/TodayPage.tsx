@@ -5,6 +5,7 @@ import WeekBubble from '../components/WeekBubble';
 import FutureBubble from '../components/FutureBubble';
 import Navbar from '../components/Navbar';
 import TodoBubble from '../components/TodoBubble';
+import ShareDialog from '../components/ShareDialog';
 
 // this is the page which displays the all the user reports for the current day
 // current implementation includes only welcome, today and week bubbles
@@ -15,11 +16,14 @@ const TodayPage = () => {
     <>
       <div className="flex flex-col min-w-[800px] bg-custombg">
         <Navbar />
+          <div className='p-6 mt'>
+            <ShareDialog />
+          </div>
+          <div className="-mt-[80px]">
+            <HelloBubble />
+          </div>
 
-        <HelloBubble />
-  
-        <div className="flex-grow px-[100px] mb-10">
-          {/* <HelloBubble /> */}
+        <div className="flex-grow px-[100px] mb-5">
           <div
             className="grid gap-2"
             style={{

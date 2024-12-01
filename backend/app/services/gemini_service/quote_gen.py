@@ -18,7 +18,7 @@ class QuoteGen(Generator):
 
         response = self.model.generate_content(
             f"""Give me a random quote that really speaks to the soul. Let it start with the letter {char}, and include the letter {char_two}. 
-            Make it this format: '"quote" - person'"""
+            Make it this format: '"quote" - person'. Do not send any additional messages."""
         )
 
         return (response.text)

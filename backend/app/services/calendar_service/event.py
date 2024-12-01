@@ -1,45 +1,24 @@
 import datetime as dt
-import os.path
 import pytz
-import google_auth_oauthlib.flow
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
+from flask import session
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
-from account_api.creds_manager import CredentialsManager
+from ...models import User
 
-SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
 
 class Event:
-    def __init__(self, credentials_file="credentials.json", scopes=SCOPES):
-        self.creds = CredentialsManager.load_creds(credentials_file, default_scopes=scopes)
-        if not self.creds:
-            print("No valid credentials loaded.")  # Debug no credentials
-            raise Exception("No valid credentials found. Please authenticate.")
-        if not self.creds.valid:
-            print("Credentials are not valid. Checking refresh status...")  # Debug invalid credentials
-            if self.creds.expired and self.creds.refresh_token:
-                print("Credentials expired. Refreshing...")
-                self.creds.refresh(Request())
-            else:
-                print("No valid or refreshable token. Re-authentication required.")
-                raise Exception("No valid credentials found. Please authenticate.")
+    def __init__(self, creds):   
+        self.creds = creds 
         self.timezone = pytz.timezone("America/New_York")
         self.now = dt.datetime.now(self.timezone)
         self.time_min = None
         self.time_max = None
         self.time_period = None
-        self.scopes = scopes
-
+    
     # this function gets the events from Google Calendar
     def get_events(self):
         try:
             # builds service for Google Calendar API
             service = build("calendar", "v3", credentials=self.creds)
-            # print to console to test functionality
-            # print (f"Getting the upcoming events for the {self.time_period}...")
-            # gets the events from Google Calendar API
             events_result = service.events().list(
                 calendarId="primary",
                 timeMin=self.time_min,
@@ -54,7 +33,7 @@ class Event:
                 print(f"No events found for the {self.time_period}.")
             return events
         # handles exception
-        except HttpError as error:
+        except Exception as error:
             print(f"An error occurred: {error}")
             return None
     
@@ -79,17 +58,17 @@ class Event:
     # this function gets the events of a certain color
     def filter_events_by_color(self, events, colorId):
         """Filters events by the given color.
-        11 = Tomato (Red)               Deadlines/tests     High
+        11 = Tomato (Red)
         4  = Flamingo (Pink)            
-        6  = Tangerine (Orange)         Appointments        High
+        6  = Tangerine (Orange)
         5  = Banana (Yellow)
         2  = Sage (Light Green)
-        10 = Basil (Dark Green)         Work                Low
-        9  = Blueberry (Dark blue)      Workouts            Low
-        1  = Lavender (Light purple)    Social Events       Medium
-        3  = Grape (Dark purple)        Unique Events       Medium
+        10 = Basil (Dark Green)         
+        9  = Blueberry (Dark blue)      
+        1  = Lavender (Light purple)    
+        3  = Grape (Dark purple)        
         8  = Graphite (Grey)
-        -  = Peacock (Blue)             Classes/Meetings    Low
+        -  = Peacock (Blue)             
         """
         #  peacock is Google's default color therefore there is no colorId field
         if colorId == "-":  

@@ -32,3 +32,5 @@ __pycache__
 #google-api
 token.json
 
+*.credentials.json
+session_data.json
