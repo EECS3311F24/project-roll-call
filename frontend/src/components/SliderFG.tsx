@@ -3,17 +3,17 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
 const marks = [
-  { value: 1, label: '2' },
-  { value: 2, label: '' },
-  { value: 3, label: '4' },
-  { value: 4, label: '' },
-  { value: 5, label: '6' },
-  { value: 6, label: '' },
-  { value: 7, label: '8' },
-  { value: 8, label: '' },
-  { value: 9, label: '10' },
-  { value: 10, label: '' },
-  { value: 11, label: '12' },
+  { value: 2, label: '2' },
+  { value: 3, label: '' },
+  { value: 4, label: '4' },
+  { value: 5, label: '' },
+  { value: 6, label: '6' },
+  { value: 7, label: '' },
+  { value: 8, label: '8' },
+  { value: 9, label: '' },
+  { value: 10, label: '10' },
+  { value: 11, label: '' },
+  { value: 12, label: '12' },
 ];
 
 function valuetext(value: number) {
@@ -31,8 +31,8 @@ export default function SliderFG() {
         shiftStep={3}
         step={1}
         marks={marks}
-        min={1}
-        max={11}
+        min={2}
+        max={12}
         
         sx={{
           '&.MuiSlider-root': {

@@ -1,17 +1,16 @@
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const AutocompleteList = [
-    { label: 'None'},
-    { label: 'Deadlines'},
-    { label: 'Appointments'},
-    { label: 'Work'},
-    { label: 'Workouts'},
-    { label: 'Social Events'},
-    { label: 'Unique Events'},
-    { label: 'Classes'},
-    { label: 'Meetings'},
-    { label: 'Tests'},
-    { label: 'Travel'}
-  ];
+  { label: 'None', id: 1},
+  { label: 'Deadlines', id: 2},
+  { label: 'Appointments', id: 3},
+  { label: 'Work', id: 4},
+  { label: 'Workouts', id: 5},
+  { label: 'Social Events', id: 6},
+  { label: 'Unique Events', id: 7},
+  { label: 'Classes', id: 8},
+  { label: 'Meetings', id: 9},
+  { label: 'Tests', id: 10},
+  { label: 'Travel', id: 11}
   
+];
+
 export default AutocompleteList;
-  

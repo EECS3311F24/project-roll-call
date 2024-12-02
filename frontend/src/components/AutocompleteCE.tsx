@@ -1,19 +1,30 @@
+import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import List from './AutocompleteList';
 import { AutoCompleteCEProps } from '../types';
 
 export default function AutoCompleteCE({ label, onSelectionChange }: AutoCompleteCEProps) {
+// interface Option {
+//   label: string;
+//   id: number;
+// }
+
+// export default function AutoCompleteCE({}) {
+//   const [selectedValue, setSelectedValue] = React.useState<Option | null>(null);
+
   return (
     <Autocomplete
       disablePortal
       options={List}
+      // value={selectedValue}
+      // onChange={(event, newValue) => setSelectedValue(newValue)} // Update selected value
       sx={{
         width: 300,
-        height:40,
+        height: 40,
         backgroundColor: 'white',
         borderRadius: 15,
-        margin:1,
+        margin: 1,
 
         '& .MuiOutlinedInput-root': {
           '& fieldset': {
@@ -26,11 +37,12 @@ export default function AutoCompleteCE({ label, onSelectionChange }: AutoComplet
           },
           '&.Mui-focused fieldset': {
             borderColor: '#32A6F9', // Remove the outline when focused
+            top: 3,
           },
-           // Adjusting the position of the dropdown arrow
+          // Adjusting the position of the dropdown arrow
           '& .MuiAutocomplete-popupIndicator': {
             top: '50%', // Align the arrow vertically at the center
-            transform: 'translateY(-30%)', // Adjust vertical centering
+            transform: 'translateY(0%)', // Adjust vertical centering
           },
         },
       }}
@@ -46,8 +58,16 @@ export default function AutoCompleteCE({ label, onSelectionChange }: AutoComplet
         <TextField 
           {...params} 
           label={label}
+        // <TextField
+        //   {...params}
+        //   label={selectedValue ? '' : "Category Type"} // Remove label after selection
           sx={{
-            '& .MuiInputLabel-root': { color: '#848484', fontFamily: 'Inter', transform: 'translate(14px, 8px)',}, // Set label color to black and font family to Inter
+            marginTop: -1,
+            '& .MuiInputLabel-root': {
+              color: '#848484', // Use state for label color
+              fontFamily: 'Inter',
+              //transform: 'translate(px, px)', // Move label up when selected
+            },
             '& .MuiInputBase-input': { fontFamily: 'Inter' }, // Set input text font family to Inter
           }}
         />
