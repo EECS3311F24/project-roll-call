@@ -1,4 +1,3 @@
-import React from 'react'
 import '../DashboardPage.css';
 import Navbar from '../components/Navbar';
 import SwitchWQ from '../components/SwitchWQ';
@@ -132,3 +131,4 @@ const DashboardPage = () => {
 }
 
 export default DashboardPage
+

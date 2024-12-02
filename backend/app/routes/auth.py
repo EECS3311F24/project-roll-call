@@ -1,7 +1,7 @@
 from flask import redirect, session, request, url_for, jsonify
 from ..services.auth_service.google_auth import initiate_google_auth, handle_oauth_callback
 from app.services.auth_service.token import save_session, decode_google_id_token
-from app.services.user_service import create_user, get_user, user_in_db, store_creds
+from app.services.user_service import create_user, get_user, user_in_db, store_creds, update_user
 from . import auth
 
 
@@ -39,6 +39,8 @@ def callback():
         # User already exists !
         if user_in_db(user_info["google_id"]): 
             user = get_user(user_info["google_id"])
+
+            user = update_user(user_info)  # update any profile info that was changed in google account from last login
             store_creds(user, credentials_dict)  # update creds on login
             # redirect to main page
             return redirect("http://localhost:3000/today")
