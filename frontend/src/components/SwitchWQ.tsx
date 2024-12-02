@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch, { SwitchProps } from '@mui/material/Switch';
+import Switch from '@mui/material/Switch';
 import '../DashboardPage.css';
+import { SwitchWQProps } from '../types';
 
-const SwitchWQ = styled(Switch)(({ theme }) => ({
+const SwitchWQ = styled(Switch)(({  }) => ({
   width: 150,
   height: 48,
   padding: 7,
@@ -101,15 +101,17 @@ const SwitchWQ = styled(Switch)(({ theme }) => ({
 }));
 
 
-export default function CustomizedSwitches() {
+const CustomizedSwitches = ({ greeting, toggleGreeting }: SwitchWQProps) => {
   return (
     <>
-            <FormGroup>
-               <FormControlLabel
-                 control={<SwitchWQ sx={{ m: 1 }} defaultChecked />}
-                 label=""
-               />
-            </FormGroup>
-        </>
+      <FormGroup>
+          <FormControlLabel
+            control={<SwitchWQ sx={{ m: 1 }} checked={greeting === 'quote'} onChange={toggleGreeting} />}
+            label=""
+          />
+      </FormGroup>
+    </>
   );
-}
+};
+
+export default CustomizedSwitches;

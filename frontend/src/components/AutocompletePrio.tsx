@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import List from './AutocompleteList';
+import List from './AutocompleteListPrio';
 
 export default function AutoCompleteCE({label = "Category Type"}) {
   return (

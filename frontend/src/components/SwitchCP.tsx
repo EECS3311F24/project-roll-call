@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch, { SwitchProps } from '@mui/material/Switch';
+import Switch from '@mui/material/Switch';
 import '../DashboardPage.css';
+import { SwitchCPProps } from '../types';
 
-const SwitchCP = styled(Switch)(({ theme }) => ({
+const SwitchCP = styled(Switch)(({  }) => ({
   width: 200,
   height: 48,
   padding: 7,
@@ -100,16 +100,17 @@ const SwitchCP = styled(Switch)(({ theme }) => ({
   },
 }));
 
-
-export default function CustomizedSwitches() {
+const CustomizedSwitches = ({ organize_by, toggleOrganize }: SwitchCPProps) => {
   return (
     <>
-            <FormGroup>
-               <FormControlLabel
-                 control={<SwitchCP sx={{ m: 1 }} defaultChecked />}
-                 label=""
-               />
-            </FormGroup>
-        </>
+      <FormGroup>
+          <FormControlLabel
+            control={<SwitchCP sx={{ m: 1 }} checked={organize_by === 'priority'} onChange={toggleOrganize} />}
+            label=""
+          />
+      </FormGroup>
+    </>
   );
-}
+};
+
+export default CustomizedSwitches;
