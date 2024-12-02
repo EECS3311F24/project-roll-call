@@ -93,12 +93,6 @@ python run.py
 ```
 
 
-### Backend (Database)
-1. Install MongoDB https://www.mongodb.com/try/download/community?tck=docs_server (ensure MongoDB Compass installation is selected)
-
-2. On MongoDB Compass (GUI) select "Add new connection", then ensure that under "URI" the following is shown: "mongodb://localhost:27017/" 
-
-3. Click "Connect"
 
 ###  **To Run the App:**
 
