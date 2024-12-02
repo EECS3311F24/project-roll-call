@@ -19,6 +19,7 @@ const DashboardPage = () => {
   const [settings, setSettings] = useState<Settings | null>(null);
   const [greeting, setGreeting] = useState<string>('');
   const [organize_by, setOrganize] = useState<string>('');
+  const [notification, setNotification] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -28,6 +29,7 @@ const DashboardPage = () => {
         setSettings(response.data);
         setGreeting(response.data.greeting || 'word');
         setOrganize(response.data.organize_by || 'category');
+        setNotification(response.data.notification);
       } catch (err) {
         console.error("Error fetching settings", err);
       }
@@ -95,6 +97,78 @@ const DashboardPage = () => {
     }
   };
 
+  const toggleNotification = async () => {
+    const newNotification = notification === true ? false : true;
+    setNotification(newNotification);
+
+    try {
+      console.log('Payload:', { setting_key: 'notification', new_value: newNotification });
+      await axios.post('http://localhost:5000/setting/update_nonevent_setting', 
+        {
+          setting_key: 'notification',
+          new_value: newNotification,
+        },
+        { withCredentials: true }
+      );
+    } catch (err) {
+      console.error("Error updating notification setting", err);
+    }
+  };
+
+  type SettingsKey = 'e1' | 'e2' | 'e3' | 'e4' | 'e5' | 'e6' | 'e7' | 'e8' | 'e9' | 'e10' | 'e11';
+  
+  const handleCategoryChange = async (key: SettingsKey, newValue: string) => {
+    if (!settings) return;
+    const updatedSettings = { ...settings, [key]: { ...settings[key], category: newValue } };
+    setSettings(updatedSettings);
+    try {
+      await axios.post(
+        'http://localhost:5000/setting/update_event_setting',
+        { setting_key: key, field_key: 'category', new_value: newValue },
+        { withCredentials: true }
+      );
+      console.log(`Category for ${key} updated to ${newValue}`);
+    } catch (err) {
+      console.error(`Error updating category for ${key}`, err);
+    }
+
+    const updatedCategories: string[] = [];
+    for (let i = 1; i <= 11; i++) {
+      const eventKey = `e${i}` as keyof Settings;
+      const event = updatedSettings[eventKey];
+
+      if (isEventSettings(event) && event.category) {
+        updatedCategories.push(event.category);
+      }
+    }
+  };
+
+  const handlePriorityChange = async (key: SettingsKey, newValue: string) => {
+    if (!settings) return;
+    const updatedSettings = { ...settings, [key]: { ...settings[key], priority: newValue } };
+    setSettings(updatedSettings);
+    try {
+      await axios.post(
+        'http://localhost:5000/setting/update_event_setting',
+        { setting_key: key, field_key: 'priority', new_value: newValue },
+        { withCredentials: true }
+      );
+      console.log(`Priority for ${key} updated to ${newValue}`);
+    } catch (err) {
+      console.error(`Error updating priority for ${key}`, err);
+    }
+
+    const updatedPriorities: string[] = [];
+    for (let i = 1; i <= 11; i++) {
+      const eventKey = `e${i}` as keyof Settings;
+      const event = settings[eventKey]
+
+      if (isEventSettings(event) && event.priority) {
+        updatedPriorities.push(event.priority);
+      }
+    }
+  };
+
   return (
     <>
         <div className="flex flex-col min-w-[800px] bg-custombg">
@@ -141,7 +215,13 @@ const DashboardPage = () => {
                               Category Type
                             </div >
                             {categories.map((category, index) => (                              
-                              <AutoCompleteCE key={index} label={category} />                              
+                              <AutoCompleteCE
+                                key={index}
+                                label={String(category || `Category for ${index}`)}
+                                onSelectionChange={(newValue) =>
+                                  handleCategoryChange(`e${index + 1}` as SettingsKey, newValue)
+                                }
+                              />                              
                             ))}
                           </div>
 
@@ -151,7 +231,13 @@ const DashboardPage = () => {
                               Priority
                             </div > 
                             {priorities.map((priority, index) => (                              
-                              <AutoCompletePrio key={index} label={priority} />                              
+                              <AutoCompletePrio
+                              key={index}
+                              label={String(priority || `Priority for ${index}`)}
+                              onSelectionChange={(newValue) =>
+                                handlePriorityChange(`e${index + 1}` as SettingsKey, newValue)
+                              }
+                            />                             
                             ))}
                           </div>
                         </div>
@@ -183,7 +269,11 @@ const DashboardPage = () => {
                     <div className="sub-sub-heading-text ">
                       Get your report emailed to you
                     </div >
-                        <SwitchYesNo/> 
+                        {settings ? (
+                          <SwitchYesNo notification={notification} toggleNotification={toggleNotification} />
+                        ) : (
+                          <div>Loading...</div>
+                        )}
                         
                     <div className="sub-sub-heading-text ">
                       Set a time to receive your report
@@ -194,13 +284,6 @@ const DashboardPage = () => {
                         </div>     
                       </div>
                     </div>
-
-                    
-                    
-                    
-
-
-
                 </div>
             </div>
     </>  

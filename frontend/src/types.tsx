@@ -20,7 +20,7 @@ export interface CalendarEvent {
 
 export interface EventSettings {
     category: string;
-    color: number | string;
+    color: number;
     priority: string;
 }
   
@@ -51,4 +51,19 @@ export interface SwitchWQProps {
 export interface SwitchCPProps {
     organize_by: string;
     toggleOrganize: () => void;
+}
+
+export interface SwitchYesNoProps {
+    notification: boolean;
+    toggleNotification: () => void;
+}
+
+export interface AutoCompleteCEProps {
+    label: string;
+    onSelectionChange: (newValue: string) => void;
+}
+
+export interface AutoCompletePrioProps {
+    label: string;
+    onSelectionChange: (newValue: string) => void;
 }

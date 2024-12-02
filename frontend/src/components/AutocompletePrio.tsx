@@ -1,8 +1,9 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import List from './AutocompleteListPrio';
+import { AutoCompletePrioProps } from '../types';
 
-export default function AutoCompleteCE({label = "Category Type"}) {
+export default function AutoCompletePrio({ label, onSelectionChange }: AutoCompletePrioProps) {
   return (
     <Autocomplete
       disablePortal
@@ -33,6 +34,14 @@ export default function AutoCompleteCE({label = "Category Type"}) {
           },
         },
       }}
+
+      onChange={(_, newValue) => {
+        if (newValue) {
+          const selectedValue = typeof newValue === 'object' && 'label' in newValue ? newValue.label : newValue;
+          onSelectionChange(selectedValue);
+        }
+      }}
+      
       renderInput={(params) => (
         
         <TextField 

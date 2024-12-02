@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch, { SwitchProps } from '@mui/material/Switch';
+import Switch from '@mui/material/Switch';
 import '../DashboardPage.css';
+import { SwitchYesNoProps } from '../types';
 
-const SwitchYesNo = styled(Switch)(({ theme }) => ({
+const SwitchYesNo = styled(Switch)(({ }) => ({
   width: 100,
   height: 48,
   padding: 6,
@@ -101,15 +101,17 @@ const SwitchYesNo = styled(Switch)(({ theme }) => ({
 }));
 
 
-export default function CustomizedSwitches() {
+const CustomizedSwitches = ({ notification, toggleNotification }: SwitchYesNoProps) => {
   return (
     <>
-            <FormGroup>
-               <FormControlLabel
-                 control={<SwitchYesNo sx={{ m: 1 }} defaultChecked />}
-                 label=""
-               />
-            </FormGroup>
-        </>
+      <FormGroup>
+          <FormControlLabel
+            control={<SwitchYesNo sx={{ m: 1 }} checked={notification === false} onChange={toggleNotification} />}
+            label=""
+          />
+      </FormGroup>
+    </>
   );
-}
+};
+
+export default CustomizedSwitches;

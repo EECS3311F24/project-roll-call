@@ -1,8 +1,9 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import List from './AutocompleteList';
+import { AutoCompleteCEProps } from '../types';
 
-export default function AutoCompleteCE({label = "Category Type"}) {
+export default function AutoCompleteCE({ label, onSelectionChange }: AutoCompleteCEProps) {
   return (
     <Autocomplete
       disablePortal
@@ -33,8 +34,15 @@ export default function AutoCompleteCE({label = "Category Type"}) {
           },
         },
       }}
+
+      onChange={(_, newValue) => {
+        if (newValue) {
+          const selectedValue = typeof newValue === 'object' && 'label' in newValue ? newValue.label : newValue;
+          onSelectionChange(selectedValue);
+        }
+      }}
+
       renderInput={(params) => (
-        
         <TextField 
           {...params} 
           label={label}
@@ -42,9 +50,7 @@ export default function AutoCompleteCE({label = "Category Type"}) {
             '& .MuiInputLabel-root': { color: '#848484', fontFamily: 'Inter', transform: 'translate(14px, 8px)',}, // Set label color to black and font family to Inter
             '& .MuiInputBase-input': { fontFamily: 'Inter' }, // Set input text font family to Inter
           }}
-          
         />
-
       )}
     />
   );

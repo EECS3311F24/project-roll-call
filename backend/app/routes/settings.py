@@ -19,12 +19,13 @@ def update_nonevent_setting():
         setting_key = request.json.get("setting_key")
         new_value = request.json.get("new_value")
 
+        if "new_value" not in request.json:
+            return jsonify({"error": "new_value required"}), 400
         if not google_id:
             return jsonify({"error": "google_id required"}), 400
         if not setting_key:
             return jsonify({"error": "setting_key required"}), 400
-        if not new_value:
-            return jsonify({"error": "new_value required"}), 400
+        
 
         return update_user_nonevent_setting(google_id, setting_key, new_value)
     except Exception as e:
