@@ -141,7 +141,7 @@ const DashboardPage = () => {
                               Category Type
                             </div >
                             {categories.map((category, index) => (                              
-                              <AutoCompleteCE key={index} label={category} />                              
+                              <AutoCompleteCE key={index} />                              
                             ))}
                           </div>
 
@@ -151,7 +151,7 @@ const DashboardPage = () => {
                               Priority
                             </div > 
                             {priorities.map((priority, index) => (                              
-                              <AutoCompletePrio key={index} label={priority} />                              
+                              <AutoCompletePrio key={index} />                              
                             ))}
                           </div>
                         </div>
