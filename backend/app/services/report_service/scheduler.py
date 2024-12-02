@@ -23,10 +23,11 @@ def send_daily_email(app):
 
         for user in users:
             try:
-                if gmail_send_message(user.email, user.google_id):
-                    success_count += 1
-                else:
-                    failure_count += 1
+                if user.settings.get('notification', False): 
+                    if gmail_send_message(user.email, user.google_id):
+                        success_count += 1
+                    else:
+                        failure_count += 1
             except Exception as e:
                 logger.error(f"Failed to process user {user.email}: {e}")
                 failure_count += 1
@@ -43,7 +44,7 @@ def schedule_jobs(app):
     scheduler.add_job(
         send_daily_email,  # Pass the function
         args=[app],        # Pass the app as an argument
-        trigger=IntervalTrigger(hours=2),  # For testing
+        trigger=IntervalTrigger(minutes=4),  # For testing
         # trigger=CronTrigger(hour=10, minute=30),
         id="daily_email_job",
         replace_existing=True
