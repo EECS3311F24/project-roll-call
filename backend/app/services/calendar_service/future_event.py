@@ -13,7 +13,8 @@ class FutureEvent(Event):
         # calls superclass constructor
         super().__init__(creds)
         # set the end of the time range as today + 30 days
-        end_of_month = self.now + dt.timedelta(days=30)
+        future_weeks = self.user.settings["future_weeks"]
+        end_of_month = self.now + dt.timedelta(days=7*future_weeks)
         self.time_min = self.now.isoformat()
         self.time_max = end_of_month.isoformat()
         self.time_period = "Future at a glance"
