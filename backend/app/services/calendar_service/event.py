@@ -4,6 +4,9 @@ from flask import session
 from googleapiclient.discovery import build
 from ...models import User
 
+from app.services.auth_service.token import get_user_id
+from flask import session
+
 
 class Event:
     def __init__(self, creds):   
@@ -13,6 +16,10 @@ class Event:
         self.time_min = None
         self.time_max = None
         self.time_period = None
+
+        self.google_id = get_user_id(session)
+        self.user = User.objects.get(google_id=self.google_id)
+        
     
     # this function gets the events from Google Calendar
     def get_events(self):
@@ -39,21 +46,64 @@ class Event:
     
     # this function gets the event type based on colorId
     def get_event_type(self, event):
+
         color_id = event.get("colorId", "")
+
         if color_id == "11":
-            return "Deadlines & Assessments"
+            return self.user.settings["e1"]["category"]
+        if color_id == "4":
+            return self.user.settings["e2"]["category"]
         if color_id == "6":
-            return "Appointments"
-        if color_id == "1":
-            return "Social Events"
-        if color_id == "3":
-            return "Unique Events"
+            return self.user.settings["e3"]["category"]
+        if color_id == "5":
+            return self.user.settings["e4"]["category"]
+        if color_id == "2":
+            return self.user.settings["e5"]["category"]
         if color_id == "10":
-            return "Works"
+            return self.user.settings["e6"]["category"]
         if color_id == "9":
-            return "Workouts"
+            return self.user.settings["e7"]["category"]
+        if color_id == "1":
+            return self.user.settings["e8"]["category"]
+        if color_id == "3":
+            return self.user.settings["e9"]["category"]
+        if color_id == "8":
+            return self.user.settings["e10"]["category"]
+        if color_id == "-":
+            return self.user.settings["e11"]["category"]
         
-        return "not found"
+        return "category not found"
+    
+    # this function gets the event type based on colorId
+    def get_event_priority(self, event):
+
+        color_id = event.get("colorId", "")
+
+        if color_id == "11":
+            return self.user.settings["e1"]["priority"]
+        if color_id == "4":
+            return self.user.settings["e2"]["priority"]
+        if color_id == "6":
+            return self.user.settings["e3"]["priority"]
+        if color_id == "5":
+            return self.user.settings["e4"]["priority"]
+        if color_id == "2":
+            return self.user.settings["e5"]["priority"]
+        if color_id == "10":
+            return self.user.settings["e6"]["priority"]
+        if color_id == "9":
+            return self.user.settings["e7"]["priority"]
+        if color_id == "1":
+            return self.user.settings["e8"]["priority"]
+        if color_id == "3":
+            return self.user.settings["e9"]["priority"]
+        if color_id == "8":
+            return self.user.settings["e10"]["priority"]
+        if color_id == "-":
+            return self.user.settings["e11"]["priority"]
+        
+        return "category not found"
+
 
     # this function gets the events of a certain color
     def filter_events_by_color(self, events, colorId):

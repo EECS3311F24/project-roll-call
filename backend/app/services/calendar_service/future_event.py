@@ -1,12 +1,13 @@
 import datetime as dt
 from .event import Event
-from datetime import datetime
+from datetime import datetime, timedelta
+from ...models import User
 
 
 # this class is a subclass of the Event class
 # it initializes the time range for events from now to 30 days from now
+
 class FutureEvent(Event):
-    
     # constructor
     def __init__(self, creds):
         # calls superclass constructor
@@ -16,7 +17,7 @@ class FutureEvent(Event):
         self.time_min = self.now.isoformat()
         self.time_max = end_of_month.isoformat()
         self.time_period = "Future at a glance"
-
+    
 
     def categorize_events(self, events):
         high_priority_events = self.filter_events_by_color(events, "11") + self.filter_events_by_color(events, "6")
@@ -38,8 +39,11 @@ class FutureEvent(Event):
                 event_start = datetime.fromisoformat(event_start + "T00:00:00").astimezone(self.timezone)
                 day_label = event_start.strftime('%b %d')
 
-            event_type = self.get_event_type(event)
-            
+            if (self.user.settings["organize_by"] == "category"): # check user setting
+                event_type = self.get_event_type(event)
+            else: 
+                event_type = self.get_event_priority(event)
+     
             if event_type not in categorized:
                 categorized[event_type] = []
 
@@ -49,6 +53,8 @@ class FutureEvent(Event):
                 "day": day_label
             })
 
+        
+        
         categorized_events = []
         for event_type, events in categorized.items():
             categorized_events.append({
@@ -57,6 +63,8 @@ class FutureEvent(Event):
             })
 
         return categorized_events
+
+
 
 # Helper functions
 

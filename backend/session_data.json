@@ -1,0 +1,15 @@
+{
+    "state": "si13eTiSDZbbpJgpwXuO70WNDu2UJ4",
+    "features": {
+        "drive": false,
+        "calendar": true,
+        "profile": true,
+        "email": true,
+        "send-email": true
+    },
+    "user": {
+        "id": "110125061098661425360",
+        "email": "saras.rollcall@gmail.com"
+    },
+    "_permanent": true
+}
