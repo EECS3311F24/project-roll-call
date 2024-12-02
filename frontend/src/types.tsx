@@ -67,3 +67,8 @@ export interface AutoCompletePrioProps {
     label: string;
     onSelectionChange: (newValue: string) => void;
 }
+
+export interface SliderFGProps {
+    value: number;
+    onChange: (value: number) => void;
+}

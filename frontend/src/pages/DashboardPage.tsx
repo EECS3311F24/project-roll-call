@@ -20,6 +20,7 @@ const DashboardPage = () => {
   const [greeting, setGreeting] = useState<string>('');
   const [organize_by, setOrganize] = useState<string>('');
   const [notification, setNotification] = useState<boolean>(true);
+  const [future_weeks, setFutureWeeks] = useState<number>(2);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -30,6 +31,7 @@ const DashboardPage = () => {
         setGreeting(response.data.greeting || 'word');
         setOrganize(response.data.organize_by || 'category');
         setNotification(response.data.notification);
+        setFutureWeeks(response.data.future_weeks || 4);
       } catch (err) {
         console.error("Error fetching settings", err);
       }
@@ -169,6 +171,24 @@ const DashboardPage = () => {
     }
   };
 
+  const handleFutureWeeksChange = async (newValue: number) => {
+    if (!settings) return;
+    setFutureWeeks(newValue);
+    try {
+      await axios.post(
+        'http://localhost:5000/setting/update_nonevent_setting',
+        {
+          setting_key: 'future_weeks',
+          new_value: newValue,
+        },
+        { withCredentials: true }
+      );
+      console.log(`Future weeks updated to ${newValue}`);
+    } catch (err) {
+      console.error('Error updating future_weeks setting', err);
+    }
+  };
+
   return (
     <>
         <div className="flex flex-col min-w-[800px] bg-custombg">
@@ -253,7 +273,7 @@ const DashboardPage = () => {
                       Time frame in Weeks
                     </div >
                         <div className="slider">
-                          <SliderFG/>  
+                          <SliderFG value={future_weeks} onChange={handleFutureWeeksChange} />  
                         </div> 
 
                         {settings ? (

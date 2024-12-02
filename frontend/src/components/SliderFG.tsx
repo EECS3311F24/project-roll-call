@@ -1,6 +1,6 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import { SliderFGProps } from '../types';
 
 const marks = [
   { value: 2, label: '2' },
@@ -20,12 +20,12 @@ function valuetext(value: number) {
   return `${value}`;
 }
 
-export default function SliderFG() {
+export default function SliderFG({ value, onChange }: SliderFGProps) {
   return (
     <Box sx={{ width: 300 }}>
       <Slider
         aria-label="Future at a Glance"
-        defaultValue={3}
+        value={value}
         getAriaValueText={valuetext}
         valueLabelDisplay="auto"
         shiftStep={3}
@@ -33,6 +33,12 @@ export default function SliderFG() {
         marks={marks}
         min={2}
         max={12}
+
+        onChange={(_, newValue) => {
+          if (typeof newValue === 'number') {
+            onChange(newValue);
+          }
+        }}
         
         sx={{
           '&.MuiSlider-root': {
