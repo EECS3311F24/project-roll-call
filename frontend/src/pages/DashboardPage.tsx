@@ -5,7 +5,8 @@ import SwitchPC from '../components/SwitchCP';
 import SwitchYesNo from '../components/SwitchYesNo';
 import SliderFG from '../components/SliderFG';
 import TimeBubble from '../components/TimeBubble';
-import AutoCompleteCE from '../components/AutocompleteCE'
+import AutoCompleteCE from '../components/AutocompleteCE';
+import AutoCompleteCEPrio from '../components/AutocompleteCEPrio';
 
 const DashboardPage = () => {
   return (
@@ -50,17 +51,17 @@ const DashboardPage = () => {
                             <div className="sub-sub-heading-text ">
                               Category Type
                             </div > 
-                            <AutoCompleteCE label="Category Type"/>
-                            <AutoCompleteCE label="Category Type"/>
-                            <AutoCompleteCE label="Category Type"/>
-                            <AutoCompleteCE label="Category Type"/>
-                            <AutoCompleteCE label="Category Type"/>
-                            <AutoCompleteCE label="Category Type"/>
-                            <AutoCompleteCE label="Category Type"/>
-                            <AutoCompleteCE label="Category Type"/>
-                            <AutoCompleteCE label="Category Type"/>
-                            <AutoCompleteCE label="Category Type"/>
-                            <AutoCompleteCE label="Category Type"/>
+                            <AutoCompleteCE/>
+                            <AutoCompleteCE/>
+                            <AutoCompleteCE/>
+                            <AutoCompleteCE/>
+                            <AutoCompleteCE/>
+                            <AutoCompleteCE/>
+                            <AutoCompleteCE/>
+                            <AutoCompleteCE/>
+                            <AutoCompleteCE/>
+                            <AutoCompleteCE/>
+                            <AutoCompleteCE/>
                           </div>
 
                           <div className="priority">
@@ -68,17 +69,17 @@ const DashboardPage = () => {
                             <div className="sub-sub-heading-text ">
                               Priority
                             </div > 
-                            <AutoCompleteCE label="Priority"/>
-                            <AutoCompleteCE label="Priority"/>
-                            <AutoCompleteCE label="Priority"/>
-                            <AutoCompleteCE label="Priority"/>
-                            <AutoCompleteCE label="Priority"/>
-                            <AutoCompleteCE label="Priority"/>
-                            <AutoCompleteCE label="Priority"/>
-                            <AutoCompleteCE label="Priority"/>
-                            <AutoCompleteCE label="Priority"/>
-                            <AutoCompleteCE label="Priority"/>
-                            <AutoCompleteCE label="Priority"/>
+                            <AutoCompleteCEPrio/>
+                            <AutoCompleteCEPrio/>
+                            <AutoCompleteCEPrio/>
+                            <AutoCompleteCEPrio/>
+                            <AutoCompleteCEPrio/>
+                            <AutoCompleteCEPrio/>
+                            <AutoCompleteCEPrio/>
+                            <AutoCompleteCEPrio/>
+                            <AutoCompleteCEPrio/>
+                            <AutoCompleteCEPrio/>
+                            <AutoCompleteCEPrio/>
                           </div>
                         </div>
                       </div>    

@@ -1,14 +1,14 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import List from './AutocompleteList';
+import List from './AutocompletePrio';
 
 interface Option {
   label: string;
   id: number;
 }
 
-export default function AutoCompleteCE({}) {
+export default function AutoCompleteCEPrio({}) {
   const [selectedValue, setSelectedValue] = React.useState<Option | null>(null);
 
   return (
@@ -47,18 +47,18 @@ export default function AutoCompleteCE({}) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label={selectedValue ? '' : "Category Type"} // Remove label after selection
+          label={selectedValue ? '' : "Priority"} // Remove label after selection
           sx={{
             marginTop: -1,
             '& .MuiInputLabel-root': {
               color: '#848484', // Use state for label color
               fontFamily: 'Inter',
-              //transform: 'translate(px, px)', // Move label up when selected
+              transform: 'translate(px, px)',
             },
             '& .MuiInputBase-input': { fontFamily: 'Inter' }, // Set input text font family to Inter
           }}
           InputLabelProps={{
-            shrink: false,  // Ensure label stays consistent
+            shrink: false, // Ensure label stays consistent
           }}
         />
       )}
