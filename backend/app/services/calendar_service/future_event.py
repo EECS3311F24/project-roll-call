@@ -21,8 +21,29 @@ class FutureEvent(Event):
     
 
     def categorize_events(self, events):
-        high_priority_events = self.filter_events_by_color(events, "11") + self.filter_events_by_color(events, "6")
-        med_priority_events = self.filter_events_by_color(events, "1") + self.filter_events_by_color(events, "3")
+        high_priority_colors = []
+        med_priority_colors = []
+        high_priority_events = []
+        med_priority_events = []
+    
+        # Find High Priority Color IDs
+        for key,value in self.user.settings.items():
+            if isinstance(value, dict) and value.get("priority") == "High Priority":
+                high_priority_colors.append(value.get("color"))
+
+        # Find Med Priority Color IDs
+        for key,value in self.user.settings.items():
+            if isinstance(value, dict) and value.get("priority") == "Medium Priority":
+                med_priority_colors.append(value.get("color"))     
+
+        for i in high_priority_colors:
+            high_priority_events += self.filter_events_by_color(events, str(i))
+
+        for i in med_priority_colors:
+            med_priority_events += self.filter_events_by_color(events, str(i))
+
+        # print(high_priority_colors)
+        # print(med_priority_colors)
 
         if (len(med_priority_events) > 5):
             med_priority_events = med_priority_events[:5]

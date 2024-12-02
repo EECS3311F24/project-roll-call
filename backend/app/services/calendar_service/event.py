@@ -61,15 +61,15 @@ class Event:
             return self.user.settings["e5"]["category"]
         if color_id == "10":
             return self.user.settings["e6"]["category"]
-        if color_id == "9":
+        if color_id == "-":
             return self.user.settings["e7"]["category"]
-        if color_id == "1":
+        if color_id == "9":
             return self.user.settings["e8"]["category"]
-        if color_id == "3":
+        if color_id == "1":
             return self.user.settings["e9"]["category"]
         if color_id == "8":
             return self.user.settings["e10"]["category"]
-        if color_id == "-":
+        if color_id == "3":
             return self.user.settings["e11"]["category"]
         
         return "category not found"
@@ -91,15 +91,15 @@ class Event:
             return self.user.settings["e5"]["priority"]
         if color_id == "10":
             return self.user.settings["e6"]["priority"]
-        if color_id == "9":
+        if color_id == "-":
             return self.user.settings["e7"]["priority"]
-        if color_id == "1":
+        if color_id == "9":
             return self.user.settings["e8"]["priority"]
-        if color_id == "3":
+        if color_id == "1":
             return self.user.settings["e9"]["priority"]
         if color_id == "8":
             return self.user.settings["e10"]["priority"]
-        if color_id == "-":
+        if color_id == "3":
             return self.user.settings["e11"]["priority"]
         
         return "category not found"
@@ -113,12 +113,12 @@ class Event:
         6  = Tangerine (Orange)
         5  = Banana (Yellow)
         2  = Sage (Light Green)
-        10 = Basil (Dark Green)         
+        10 = Basil (Dark Green)
+        -  = Peacock (Blue)         
         9  = Blueberry (Dark blue)      
-        1  = Lavender (Light purple)    
-        3  = Grape (Dark purple)        
-        8  = Graphite (Grey)
-        -  = Peacock (Blue)             
+        1  = Lavender (Light purple)
+        8  = Graphite (Grey)    
+        3  = Grape (Dark purple)           
         """
         #  peacock is Google's default color therefore there is no colorId field
         if colorId == "-":  

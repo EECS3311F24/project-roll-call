@@ -24,13 +24,13 @@ class User(Document):
         "e2": {"color": 4, "category": "None", "priority": "None"},
         "e3": {"color": 6, "category": "Appointments", "priority": "High Priority"},
         "e4": {"color": 5, "category": "None", "priority": "None"},
-        "e5": {"color": 2, "category": "None", "priority": "None"},
+        "e5": {"color": 2, "category": "Travel", "priority": "Low Priority"},
         "e6": {"color": 10, "category": "Work", "priority": "Low Priority"},
-        "e7": {"color": 9, "category": "Workouts", "priority": "Low Priority"},
-        "e8": {"color": 1, "category": "Social Events", "priority": "Medium Priority"},
-        "e9": {"color": 3, "category": "Unique Events", "priority": "Medium Priority"},
+        "e7": {"color": "-", "category": "Classes", "priority": "Low Priority"},
+        "e8": {"color": 9, "category": "Workouts", "priority": "Low Priority"},
+        "e9": {"color": 1, "category": "Unique Events", "priority": "Medium Priority"},
         "e10": {"color": 8, "category": "None", "priority": "None"},
-        "e11": {"color": "-", "category": "Classes", "priority": "Low Priority"},
+        "e11": {"color": 3, "category": "None", "priority": "None"},
         "notification": True,
         "notification_time": "08:00"
         })  

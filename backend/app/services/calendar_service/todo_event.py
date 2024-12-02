@@ -20,8 +20,18 @@ class SuggestedToDo(Event):
         # fetch all events from the parent class method
         all_events = super().get_events()
 
-        # filter high-priority events (colorId: 11 = Deadlines/tests (red), 6 = Appointments (orange))
-        high_priority_events = self.filter_events_by_color(all_events, "11") + self.filter_events_by_color(all_events, "6")
+        high_priority_colors = []
+        high_priority_events = []
+
+        # filter high-priority events
+        for key,value in self.user.settings.items():
+            if isinstance(value, dict) and value.get("priority") == "High Priority":
+                high_priority_colors.append(value.get("color"))
+
+        for i in high_priority_colors:
+            high_priority_events += self.filter_events_by_color(all_events, str(i))
+
+        high_priority_events = self.sort_events_by_date(high_priority_events)
         
         # limit the high-priority events to the top 5
         if len(high_priority_events) > 5:
