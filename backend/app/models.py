@@ -20,7 +20,7 @@ class User(Document):
         "greeting": "word", 
         "future_weeks": 4, 
         "organize_by": "category",
-        "e1": {"color": 11, "category": "Deadlines/Tests", "priority": "High Priority"},
+        "e1": {"color": 11, "category": "Deadlines", "priority": "High Priority"},
         "e2": {"color": 4, "category": "None", "priority": "None"},
         "e3": {"color": 6, "category": "Appointments", "priority": "High Priority"},
         "e4": {"color": 5, "category": "None", "priority": "None"},
@@ -30,7 +30,7 @@ class User(Document):
         "e8": {"color": 1, "category": "Social Events", "priority": "Medium Priority"},
         "e9": {"color": 3, "category": "Unique Events", "priority": "Medium Priority"},
         "e10": {"color": 8, "category": "None", "priority": "None"},
-        "e11": {"color": "-", "category": "Classes/Meetings", "priority": "Low Priority"},
+        "e11": {"color": "-", "category": "Classes", "priority": "Low Priority"},
         "notification": True,
         "notification_time": "08:00"
         })  
