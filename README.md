@@ -65,7 +65,7 @@ npm run dev
 
 2. Create and activate the virtual environment
 ```
-cd backend/flask_app
+cd backend
 python -m venv venv
 ```
 
@@ -89,7 +89,7 @@ pip install -r requirements.txt
 
 5. Start the Server
 ```
-python app.py
+python run.py
 ```
 
 
