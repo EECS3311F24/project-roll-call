@@ -49,6 +49,7 @@ class FutureEvent(Event):
             med_priority_events = med_priority_events[:5]
         
         filtered_events = high_priority_events + med_priority_events
+        filtered_events = self.sort_events_by_date(filtered_events)
 
         categorized = {}
 
